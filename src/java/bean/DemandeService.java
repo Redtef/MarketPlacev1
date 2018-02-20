@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -53,6 +54,8 @@ public class DemandeService implements Serializable {
     private Date dateDernierModif;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateSuppression;
+    @OneToOne
+    private TypeDemande typeDemande;
 
     public DemandeService() {
     }
@@ -63,6 +66,28 @@ public class DemandeService implements Serializable {
 
     public void setDatedemande(Date datedemande) {
         this.datedemande = datedemande;
+    }
+
+    public DemandeService(Client client, Timing timing, String detail, Secteur secteur, Societe societe, BigDecimal prixHt, BigDecimal prixTtc, ServicePricing servicePricing, Service service, Planning planning, TypeDemande typeDemande) {
+        this.client = client;
+        this.timing = timing;
+        this.detail = detail;
+        this.secteur = secteur;
+        this.societe = societe;
+        this.prixHt = prixHt;
+        this.prixTtc = prixTtc;
+        this.servicePricing = servicePricing;
+        this.service = service;
+        this.planning = planning;
+        this.typeDemande = typeDemande;
+    }
+
+    public TypeDemande getTypeDemande() {
+        return typeDemande;
+    }
+
+    public void setTypeDemande(TypeDemande typeDemande) {
+        this.typeDemande = typeDemande;
     }
 
     public Client getClient() {

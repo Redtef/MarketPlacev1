@@ -11,24 +11,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
- * @author Boss
+ * @author DELL
  */
 @Entity
-public class DemandePhotographie implements Serializable {
+public class DemandeVoiture implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private PhotographieType typePhotographie;
-    private Boolean videographie;
     @ManyToOne
     private DemandeService demandeService;
+    @ManyToOne
+    private Voiture voiture;
+
+    public DemandeVoiture() {
+    }
 
     public DemandeService getDemandeService() {
         return demandeService;
@@ -37,25 +38,13 @@ public class DemandePhotographie implements Serializable {
     public void setDemandeService(DemandeService demandeService) {
         this.demandeService = demandeService;
     }
-    
 
-    public DemandePhotographie() {
+    public Voiture getVoiture() {
+        return voiture;
     }
 
-    public PhotographieType getTypePhotographie() {
-        return typePhotographie;
-    }
-
-    public void setTypePhotographie(PhotographieType typePhotographie) {
-        this.typePhotographie = typePhotographie;
-    }
-
-    public Boolean getVideographie() {
-        return videographie;
-    }
-
-    public void setVideographie(Boolean videographie) {
-        this.videographie = videographie;
+    public void setVoiture(Voiture voiture) {
+        this.voiture = voiture;
     }
 
     public Long getId() {
@@ -76,10 +65,10 @@ public class DemandePhotographie implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DemandePhotographie)) {
+        if (!(object instanceof DemandeVoiture)) {
             return false;
         }
-        DemandePhotographie other = (DemandePhotographie) object;
+        DemandeVoiture other = (DemandeVoiture) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -88,7 +77,7 @@ public class DemandePhotographie implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.DemandePhotographie[ id=" + id + " ]";
+        return "bean.DemandeServiceVoiture[ id=" + id + " ]";
     }
 
 }

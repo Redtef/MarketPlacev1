@@ -37,7 +37,13 @@
     <class>bean.SupplementEvent</class>
     <class>bean.Timing</class>
     <class>bean.TypeAction</class>
+    <class>bean.TypeDemande</class>
     <class>bean.Ville</class>
+    <class>bean.DemandeVoiture</class>
+    <class>bean.Voiture</class>
+    <class>bean.VoitureImage</class>
+    <class>bean.VoitureMarque</class>
+    <class>bean.VoitureModele</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDemandeServiceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDemandeServiceEmpty}" rendered="#{demandeServiceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{demandeServiceController.items.rowCount > 0}">
+                    <h:outputText value="#{demandeServiceController.pagination.pageFirstItem + 1}..#{demandeServiceController.pagination.pageLastItem + 1}/#{demandeServiceController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{demandeServiceController.previous}" value="#{bundle.Previous} #{demandeServiceController.pagination.pageSize}" rendered="#{demandeServiceController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{demandeServiceController.next}" value="#{bundle.Next} #{demandeServiceController.pagination.pageSize}" rendered="#{demandeServiceController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{demandeServiceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_datedemande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datedemande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_typeDemande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.typeDemande}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_client}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.client}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_timing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.timing}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_detail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_secteur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.secteur}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_societe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.societe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_prixHt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixHt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_prixTtc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prixTtc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_servicePricing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.servicePricing}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_service}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.service}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_planning}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.planning}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_managerConfirmation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.managerConfirmation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_dateConfirmation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateConfirmation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_dateDernierModif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDernierModif}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_dateSuppression}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateSuppression}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeServiceTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{demandeServiceController.prepareView}" value="#{bundle.ListDemandeServiceViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{demandeServiceController.prepareEdit}" value="#{bundle.ListDemandeServiceEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{demandeServiceController.destroy}" value="#{bundle.ListDemandeServiceDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{demandeServiceController.prepareCreate}" value="#{bundle.ListDemandeServiceCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDemandeServiceIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

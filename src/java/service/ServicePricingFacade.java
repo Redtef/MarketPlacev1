@@ -23,7 +23,8 @@ public class ServicePricingFacade extends AbstractFacade<ServicePricing> {
     private EntityManager em;
 
     public ServicePricing findByDateApplicationAndService(Date dateApplication, Service service) {
-        return (ServicePricing) em.createQuery("SELECT item FROM ServicePricing item WHERE item.dateApplication < '" + dateApplication + "' and item.service.id=serviceIput.id BY item.dateApplication DESC").setMaxResults(1).getSingleResult();
+        return (ServicePricing) em.createQuery("SELECT item FROM ServicePricing item "
+                + "WHERE item.dateApplication < '" + dateApplication + "' and item.service.id="+service.getId()+" BY item.dateApplication DESC").setMaxResults(1).getSingleResult();
     }
 
     @Override
@@ -34,5 +35,5 @@ public class ServicePricingFacade extends AbstractFacade<ServicePricing> {
     public ServicePricingFacade() {
         super(ServicePricing.class);
     }
-
+    
 }

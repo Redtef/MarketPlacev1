@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePlanningItemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_day}" for="day" />
+                    <h:selectOneMenu id="day" value="#{planningItemController.selected.day}" title="#{bundle.CreatePlanningItemTitle_day}" >
+                        <f:selectItems value="#{dayController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_planning}" for="planning" />
+                    <h:selectOneMenu id="planning" value="#{planningItemController.selected.planning}" title="#{bundle.CreatePlanningItemTitle_planning}" >
+                        <f:selectItems value="#{planningController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{planningItemController.selected.id}" title="#{bundle.CreatePlanningItemTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{planningItemController.create}" value="#{bundle.CreatePlanningItemSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{planningItemController.prepareList}" value="#{bundle.CreatePlanningItemShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePlanningItemIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

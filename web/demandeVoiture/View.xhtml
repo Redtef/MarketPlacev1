@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDemandeVoitureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDemandeVoitureLabel_demandeService}"/>
+                    <h:outputText value="#{demandeVoitureController.selected.demandeService}" title="#{bundle.ViewDemandeVoitureTitle_demandeService}"/>
+                    <h:outputText value="#{bundle.ViewDemandeVoitureLabel_voiture}"/>
+                    <h:outputText value="#{demandeVoitureController.selected.voiture}" title="#{bundle.ViewDemandeVoitureTitle_voiture}"/>
+                    <h:outputText value="#{bundle.ViewDemandeVoitureLabel_id}"/>
+                    <h:outputText value="#{demandeVoitureController.selected.id}" title="#{bundle.ViewDemandeVoitureTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{demandeVoitureController.destroyAndView}" value="#{bundle.ViewDemandeVoitureDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDemandeVoitureEditLink}"/>
+                <br />
+                <h:commandLink action="#{demandeVoitureController.prepareCreate}" value="#{bundle.ViewDemandeVoitureCreateLink}" />
+                <br />
+                <h:commandLink action="#{demandeVoitureController.prepareList}" value="#{bundle.ViewDemandeVoitureShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDemandeVoitureIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

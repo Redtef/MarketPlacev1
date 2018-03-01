@@ -17,28 +17,28 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PlanningFacade extends AbstractFacade<Planning> {
-    
+
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
-    
+
     @EJB
     PlanningItemFacade planningItemFacade;
     
 
     public int save(Planning planning) {
-        planning.setId(generateMax("Planning", "id"));
+        planning.setId(generateId("Planning", "id"));
         create(planning);
-        
         if (planning.getDateOnce() == null) {
             planningItemFacade.save(planning, planning.getPlanningItems());
         }        
+        return 1;
     }
     
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     public PlanningFacade() {
         super(Planning.class);
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDemandeGardeningTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDemandeGardeningLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{demandeGardeningController.selected.id}" title="#{bundle.CreateDemandeGardeningTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateDemandeGardeningLabel_demandeService}" for="demandeService" />
+                    <h:selectOneMenu id="demandeService" value="#{demandeGardeningController.selected.demandeService}" title="#{bundle.CreateDemandeGardeningTitle_demandeService}" >
+                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDemandeGardeningLabel_gardeningType}" for="gardeningType" />
+                    <h:selectOneMenu id="gardeningType" value="#{demandeGardeningController.selected.gardeningType}" title="#{bundle.CreateDemandeGardeningTitle_gardeningType}" >
+                        <f:selectItems value="#{gardeningTypeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDemandeGardeningLabel_home}" for="home" />
+                    <h:selectOneMenu id="home" value="#{demandeGardeningController.selected.home}" title="#{bundle.CreateDemandeGardeningTitle_home}" >
+                        <f:selectItems value="#{homeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{demandeGardeningController.create}" value="#{bundle.CreateDemandeGardeningSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{demandeGardeningController.prepareList}" value="#{bundle.CreateDemandeGardeningShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDemandeGardeningIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

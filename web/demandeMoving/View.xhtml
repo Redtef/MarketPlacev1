@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDemandeMovingTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_demandeService}"/>
+                    <h:outputText value="#{demandeMovingController.selected.demandeService}" title="#{bundle.ViewDemandeMovingTitle_demandeService}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_villeDepart}"/>
+                    <h:outputText value="#{demandeMovingController.selected.villeDepart}" title="#{bundle.ViewDemandeMovingTitle_villeDepart}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_adresseDepart}"/>
+                    <h:outputText value="#{demandeMovingController.selected.adresseDepart}" title="#{bundle.ViewDemandeMovingTitle_adresseDepart}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_villeArrive}"/>
+                    <h:outputText value="#{demandeMovingController.selected.villeArrive}" title="#{bundle.ViewDemandeMovingTitle_villeArrive}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_adresseArrive}"/>
+                    <h:outputText value="#{demandeMovingController.selected.adresseArrive}" title="#{bundle.ViewDemandeMovingTitle_adresseArrive}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_storage}"/>
+                    <h:outputText value="#{demandeMovingController.selected.storage}" title="#{bundle.ViewDemandeMovingTitle_storage}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_handyman}"/>
+                    <h:outputText value="#{demandeMovingController.selected.handyman}" title="#{bundle.ViewDemandeMovingTitle_handyman}"/>
+                    <h:outputText value="#{bundle.ViewDemandeMovingLabel_id}"/>
+                    <h:outputText value="#{demandeMovingController.selected.id}" title="#{bundle.ViewDemandeMovingTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{demandeMovingController.destroyAndView}" value="#{bundle.ViewDemandeMovingDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDemandeMovingEditLink}"/>
+                <br />
+                <h:commandLink action="#{demandeMovingController.prepareCreate}" value="#{bundle.ViewDemandeMovingCreateLink}" />
+                <br />
+                <h:commandLink action="#{demandeMovingController.prepareList}" value="#{bundle.ViewDemandeMovingShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDemandeMovingIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

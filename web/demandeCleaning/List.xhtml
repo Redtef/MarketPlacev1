@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDemandeCleaningTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDemandeCleaningEmpty}" rendered="#{demandeCleaningController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{demandeCleaningController.items.rowCount > 0}">
+                    <h:outputText value="#{demandeCleaningController.pagination.pageFirstItem + 1}..#{demandeCleaningController.pagination.pageLastItem + 1}/#{demandeCleaningController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{demandeCleaningController.previous}" value="#{bundle.Previous} #{demandeCleaningController.pagination.pageSize}" rendered="#{demandeCleaningController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{demandeCleaningController.next}" value="#{bundle.Next} #{demandeCleaningController.pagination.pageSize}" rendered="#{demandeCleaningController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{demandeCleaningController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeCleaningTitle_nbrCleaner}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrCleaner}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeCleaningTitle_demandeService}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.demandeService}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeCleaningTitle_nbrHeures}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrHeures}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeCleaningTitle_bringEquipement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bringEquipement}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDemandeCleaningTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{demandeCleaningController.prepareView}" value="#{bundle.ListDemandeCleaningViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{demandeCleaningController.prepareEdit}" value="#{bundle.ListDemandeCleaningEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{demandeCleaningController.destroy}" value="#{bundle.ListDemandeCleaningDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{demandeCleaningController.prepareCreate}" value="#{bundle.ListDemandeCleaningCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDemandeCleaningIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

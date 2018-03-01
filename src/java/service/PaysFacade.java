@@ -5,7 +5,7 @@
  */
 package service;
 
-import bean.DemandeService;
+import bean.Pays;
 import bean.Secteur;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  * @author Boss
  */
 @Stateless
-public class PaysFacade extends AbstractFacade<DemandeService> {
+public class PaysFacade extends AbstractFacade<Pays> {
 
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
@@ -36,7 +36,7 @@ public class PaysFacade extends AbstractFacade<DemandeService> {
     }
 
     public PaysFacade() {
-        super(DemandeService.class);
+        super(Pays.class);
     }
-
+    
 }

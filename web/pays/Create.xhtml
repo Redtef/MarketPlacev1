@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePaysTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{paysController.selected.name}" title="#{bundle.CreatePaysTitle_name}" />
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_tva}" for="tva" />
+                    <h:inputText id="tva" value="#{paysController.selected.tva}" title="#{bundle.CreatePaysTitle_tva}" />
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{paysController.selected.id}" title="#{bundle.CreatePaysTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{paysController.create}" value="#{bundle.CreatePaysSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{paysController.prepareList}" value="#{bundle.CreatePaysShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePaysIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDemandeMovingTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_demandeService}" for="demandeService" />
+                    <h:selectOneMenu id="demandeService" value="#{demandeMovingController.selected.demandeService}" title="#{bundle.EditDemandeMovingTitle_demandeService}" >
+                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_villeDepart}" for="villeDepart" />
+                    <h:selectOneMenu id="villeDepart" value="#{demandeMovingController.selected.villeDepart}" title="#{bundle.EditDemandeMovingTitle_villeDepart}" >
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_adresseDepart}" for="adresseDepart" />
+                    <h:inputText id="adresseDepart" value="#{demandeMovingController.selected.adresseDepart}" title="#{bundle.EditDemandeMovingTitle_adresseDepart}" />
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_villeArrive}" for="villeArrive" />
+                    <h:selectOneMenu id="villeArrive" value="#{demandeMovingController.selected.villeArrive}" title="#{bundle.EditDemandeMovingTitle_villeArrive}" >
+                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_adresseArrive}" for="adresseArrive" />
+                    <h:inputText id="adresseArrive" value="#{demandeMovingController.selected.adresseArrive}" title="#{bundle.EditDemandeMovingTitle_adresseArrive}" />
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_storage}" for="storage" />
+                    <h:inputText id="storage" value="#{demandeMovingController.selected.storage}" title="#{bundle.EditDemandeMovingTitle_storage}" />
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_handyman}" for="handyman" />
+                    <h:inputText id="handyman" value="#{demandeMovingController.selected.handyman}" title="#{bundle.EditDemandeMovingTitle_handyman}" />
+                    <h:outputLabel value="#{bundle.EditDemandeMovingLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{demandeMovingController.selected.id}" title="#{bundle.EditDemandeMovingTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{demandeMovingController.update}" value="#{bundle.EditDemandeMovingSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDemandeMovingViewLink}"/>
+                <br />
+                <h:commandLink action="#{demandeMovingController.prepareList}" value="#{bundle.EditDemandeMovingShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDemandeMovingIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

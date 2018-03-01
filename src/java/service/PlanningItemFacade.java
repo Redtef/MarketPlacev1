@@ -28,6 +28,7 @@ public class PlanningItemFacade extends AbstractFacade<PlanningItem> {
             planningItem.setPlanning(planning);
             create(planningItem);
         }
+       
     }
 
     @Override
@@ -38,5 +39,5 @@ public class PlanningItemFacade extends AbstractFacade<PlanningItem> {
     public PlanningItemFacade() {
         super(PlanningItem.class);
     }
-
+    
 }

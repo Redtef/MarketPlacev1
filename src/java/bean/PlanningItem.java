@@ -27,7 +27,19 @@ public class PlanningItem implements Serializable {
     private Day day;
     @ManyToOne
     private Planning planning;
+    @ManyToOne
+    private Timing timing;
 
+    public Timing getTiming() {
+        return timing;
+    }
+
+    public void setTiming(Timing timing) {
+        this.timing = timing;
+    }
+    
+
+    
     public PlanningItem() {
     }
 

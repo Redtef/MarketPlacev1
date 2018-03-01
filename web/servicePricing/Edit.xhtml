@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditServicePricingTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditServicePricingLabel_dateApplication}" for="dateApplication" />
+                    <h:inputText id="dateApplication" value="#{servicePricingController.selected.dateApplication}" title="#{bundle.EditServicePricingTitle_dateApplication}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditServicePricingLabel_service}" for="service" />
+                    <h:selectOneMenu id="service" value="#{servicePricingController.selected.service}" title="#{bundle.EditServicePricingTitle_service}" >
+                        <f:selectItems value="#{serviceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditServicePricingLabel_prix}" for="prix" />
+                    <h:inputText id="prix" value="#{servicePricingController.selected.prix}" title="#{bundle.EditServicePricingTitle_prix}" />
+                    <h:outputLabel value="#{bundle.EditServicePricingLabel_heures}" for="heures" />
+                    <h:inputText id="heures" value="#{servicePricingController.selected.heures}" title="#{bundle.EditServicePricingTitle_heures}" />
+                    <h:outputLabel value="#{bundle.EditServicePricingLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{servicePricingController.selected.id}" title="#{bundle.EditServicePricingTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{servicePricingController.update}" value="#{bundle.EditServicePricingSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditServicePricingViewLink}"/>
+                <br />
+                <h:commandLink action="#{servicePricingController.prepareList}" value="#{bundle.EditServicePricingShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditServicePricingIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

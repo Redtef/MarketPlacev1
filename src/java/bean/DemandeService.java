@@ -31,8 +31,6 @@ public class DemandeService implements Serializable {
     private Date datedemande;
     @ManyToOne
     private Client client;
-    @ManyToOne
-    private Timing timing;
     private String detail;
     @ManyToOne
     private Secteur secteur;
@@ -68,9 +66,8 @@ public class DemandeService implements Serializable {
         this.datedemande = datedemande;
     }
 
-    public DemandeService(Client client, Timing timing, String detail, Secteur secteur, Societe societe, BigDecimal prixHt, BigDecimal prixTtc, ServicePricing servicePricing, Service service, Planning planning, TypeDemande typeDemande) {
+    public DemandeService(Client client, String detail, Secteur secteur, Societe societe, BigDecimal prixHt, BigDecimal prixTtc, ServicePricing servicePricing, Service service, Planning planning, TypeDemande typeDemande) {
         this.client = client;
-        this.timing = timing;
         this.detail = detail;
         this.secteur = secteur;
         this.societe = societe;
@@ -98,13 +95,6 @@ public class DemandeService implements Serializable {
         this.client = client;
     }
 
-    public Timing getTiming() {
-        return timing;
-    }
-
-    public void setTiming(Timing timing) {
-        this.timing = timing;
-    }
 
     public String getDetail() {
         return detail;

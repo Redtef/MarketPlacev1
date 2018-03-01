@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDemandePestControlTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDemandePestControlLabel_detail}" for="detail" />
+                    <h:inputText id="detail" value="#{demandePestControlController.selected.detail}" title="#{bundle.EditDemandePestControlTitle_detail}" />
+                    <h:outputLabel value="#{bundle.EditDemandePestControlLabel_demandeService}" for="demandeService" />
+                    <h:selectOneMenu id="demandeService" value="#{demandePestControlController.selected.demandeService}" title="#{bundle.EditDemandePestControlTitle_demandeService}" >
+                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDemandePestControlLabel_typeOfPestControl}" for="typeOfPestControl" />
+                    <h:selectOneMenu id="typeOfPestControl" value="#{demandePestControlController.selected.typeOfPestControl}" title="#{bundle.EditDemandePestControlTitle_typeOfPestControl}" >
+                        <f:selectItems value="#{pestControlTypeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDemandePestControlLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{demandePestControlController.selected.id}" title="#{bundle.EditDemandePestControlTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{demandePestControlController.update}" value="#{bundle.EditDemandePestControlSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDemandePestControlViewLink}"/>
+                <br />
+                <h:commandLink action="#{demandePestControlController.prepareList}" value="#{bundle.EditDemandePestControlShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDemandePestControlIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

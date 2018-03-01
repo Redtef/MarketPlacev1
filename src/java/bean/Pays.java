@@ -34,6 +34,9 @@ public class Pays implements Serializable {
         this.id = id;
     }
 
+    public Pays() {
+    }
+
     
     
     public String getName() {

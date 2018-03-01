@@ -31,16 +31,25 @@ public class ServicePricing implements Serializable {
     @ManyToOne
     private Service service;
     private BigDecimal prix;
-    private BigDecimal heures;
+    @ManyToOne
+    private Unite unite;
 
     public ServicePricing() {
     }
 
-    public ServicePricing(Date dateApplication, Service service, BigDecimal prix, BigDecimal heures) {
+    public Unite getUnite() {
+        return unite;
+    }
+
+    public void setUnite(Unite unite) {
+        this.unite = unite;
+    }
+
+    
+    public ServicePricing(Date dateApplication, Service service, BigDecimal prix) {
         this.dateApplication = dateApplication;
         this.service = service;
         this.prix = prix;
-        this.heures = heures;
     }
 
     public Date getDateApplication() {
@@ -67,13 +76,6 @@ public class ServicePricing implements Serializable {
         this.prix = prix;
     }
 
-    public BigDecimal getHeures() {
-        return heures;
-    }
-
-    public void setHeures(BigDecimal heures) {
-        this.heures = heures;
-    }
 
     public Long getId() {
         return id;
@@ -105,7 +107,7 @@ public class ServicePricing implements Serializable {
 
     @Override
     public String toString() {
-        return "ServicePricing{" + "dateApplication=" + dateApplication + ", service=" + service + ", prix=" + prix + ", heures=" + heures + '}';
+        return "ServicePricing{" + "dateApplication=" + dateApplication + ", service=" + service + ", prix=" + prix +  '}';
     }
 
     

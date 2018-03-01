@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSocieteJobTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSocieteJobEmpty}" rendered="#{societeJobController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{societeJobController.items.rowCount > 0}">
+                    <h:outputText value="#{societeJobController.pagination.pageFirstItem + 1}..#{societeJobController.pagination.pageLastItem + 1}/#{societeJobController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{societeJobController.previous}" value="#{bundle.Previous} #{societeJobController.pagination.pageSize}" rendered="#{societeJobController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{societeJobController.next}" value="#{bundle.Next} #{societeJobController.pagination.pageSize}" rendered="#{societeJobController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{societeJobController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteJobTitle_societe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.societe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteJobTitle_secteur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.secteur}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteJobTitle_service}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.service}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSocieteJobTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{societeJobController.prepareView}" value="#{bundle.ListSocieteJobViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{societeJobController.prepareEdit}" value="#{bundle.ListSocieteJobEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{societeJobController.destroy}" value="#{bundle.ListSocieteJobDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{societeJobController.prepareCreate}" value="#{bundle.ListSocieteJobCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSocieteJobIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

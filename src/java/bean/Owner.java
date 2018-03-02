@@ -8,8 +8,6 @@ package bean;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -22,13 +20,36 @@ public class Owner implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String nom;
     private String email;
     private String phone;
     @OneToMany(mappedBy = "owner")
     private List<Societe> societes;
+    private boolean blocked;
+    @OneToMany(mappedBy = "owner")
+    private List<Device> devices;
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    
+    
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+    
+    
+    
 
     public Owner() {
     }
@@ -72,11 +93,11 @@ public class Owner implements Serializable {
         this.email = email;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

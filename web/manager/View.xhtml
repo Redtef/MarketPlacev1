@@ -3,38 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewManagerTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewManagerLabel_password}"/>
-                    <h:outputText value="#{managerController.selected.password}" title="#{bundle.ViewManagerTitle_password}"/>
-                    <h:outputText value="#{bundle.ViewManagerLabel_id}"/>
-                    <h:outputText value="#{managerController.selected.id}" title="#{bundle.ViewManagerTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{managerController.destroyAndView}" value="#{bundle.ViewManagerDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewManagerEditLink}"/>
-                <br />
-                <h:commandLink action="#{managerController.prepareCreate}" value="#{bundle.ViewManagerCreateLink}" />
-                <br />
-                <h:commandLink action="#{managerController.prepareList}" value="#{bundle.ViewManagerShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewManagerIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="ManagerViewDlg" widgetVar="ManagerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewManagerTitle}">
+            <h:form id="ManagerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{managerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewManagerLabel_password}"/>
+                        <h:outputText value="#{managerController.selected.password}" title="#{bundle.ViewManagerTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewManagerLabel_id}"/>
+                        <h:outputText value="#{managerController.selected.id}" title="#{bundle.ViewManagerTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ManagerViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

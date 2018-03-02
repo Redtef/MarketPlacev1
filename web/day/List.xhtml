@@ -3,53 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListDayTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListDayEmpty}" rendered="#{dayController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{dayController.items.rowCount > 0}">
-                    <h:outputText value="#{dayController.pagination.pageFirstItem + 1}..#{dayController.pagination.pageLastItem + 1}/#{dayController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{dayController.previous}" value="#{bundle.Previous} #{dayController.pagination.pageSize}" rendered="#{dayController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{dayController.next}" value="#{bundle.Next} #{dayController.pagination.pageSize}" rendered="#{dayController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{dayController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="DayListForm">
+                <p:panel header="#{bundle.ListDayTitle}">
+                    <p:dataTable id="datalist" value="#{dayController.items}" var="item"
+                                 selectionMode="single" selection="#{dayController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDayTitle_nom}"/>
                             </f:facet>
                             <h:outputText value="#{item.nom}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDayTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{dayController.prepareView}" value="#{bundle.ListDayViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{dayController.prepareEdit}" value="#{bundle.ListDayEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{dayController.destroy}" value="#{bundle.ListDayDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{dayController.prepareCreate}" value="#{bundle.ListDayCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListDayIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dayController.prepareCreate}" update=":DayCreateForm" oncomplete="PF('DayCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DayViewForm" oncomplete="PF('DayViewDialog').show()" disabled="#{empty dayController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DayEditForm" oncomplete="PF('DayEditDialog').show()" disabled="#{empty dayController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dayController.destroy}" update=":growl,datalist" disabled="#{empty dayController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -3,43 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDemandeEventTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDemandeEventLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandeEventController.selected.demandeService}" title="#{bundle.CreateDemandeEventTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeEventLabel_event}" for="event" />
-                    <h:selectOneMenu id="event" value="#{demandeEventController.selected.event}" title="#{bundle.CreateDemandeEventTitle_event}" >
-                        <f:selectItems value="#{eventTypeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeEventLabel_detail}" for="detail" />
-                    <h:inputText id="detail" value="#{demandeEventController.selected.detail}" title="#{bundle.CreateDemandeEventTitle_detail}" />
-                    <h:outputLabel value="#{bundle.CreateDemandeEventLabel_nbrInvites}" for="nbrInvites" />
-                    <h:inputText id="nbrInvites" value="#{demandeEventController.selected.nbrInvites}" title="#{bundle.CreateDemandeEventTitle_nbrInvites}" />
-                    <h:outputLabel value="#{bundle.CreateDemandeEventLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandeEventController.selected.id}" title="#{bundle.CreateDemandeEventTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{demandeEventController.create}" value="#{bundle.CreateDemandeEventSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{demandeEventController.prepareList}" value="#{bundle.CreateDemandeEventShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateDemandeEventIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="DemandeEventCreateDlg" widgetVar="DemandeEventCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDemandeEventTitle}">
+            <h:form id="DemandeEventCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeEventController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDemandeEventLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandeEventController.selected.demandeService}" >
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeEventLabel_event}" for="event" />
+                        <p:selectOneMenu id="event" value="#{demandeEventController.selected.event}" >
+                            <f:selectItems value="#{eventTypeController.itemsAvailableSelectOne}"
+                                           var="eventItem"
+                                           itemValue="#{eventItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeEventLabel_detail}" for="detail" />
+                        <p:inputText id="detail" value="#{demandeEventController.selected.detail}" title="#{bundle.CreateDemandeEventTitle_detail}" />
+                        <p:outputLabel value="#{bundle.CreateDemandeEventLabel_nbrInvites}" for="nbrInvites" />
+                        <p:inputText id="nbrInvites" value="#{demandeEventController.selected.nbrInvites}" title="#{bundle.CreateDemandeEventTitle_nbrInvites}" />
+                        <p:outputLabel value="#{bundle.CreateDemandeEventLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandeEventController.selected.id}" title="#{bundle.CreateDemandeEventTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandeEventController.create}" value="#{bundle.Save}" update="display,:DemandeEventListForm:datalist,:growl" oncomplete="handleSubmit(args,'DemandeEventCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandeEventCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

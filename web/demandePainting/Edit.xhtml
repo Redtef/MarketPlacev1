@@ -3,42 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditDemandePaintingTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDemandePaintingLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandePaintingController.selected.demandeService}" title="#{bundle.EditDemandePaintingTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandePaintingLabel_painting}" for="painting" />
-                    <h:selectOneMenu id="painting" value="#{demandePaintingController.selected.painting}" title="#{bundle.EditDemandePaintingTitle_painting}" >
-                        <f:selectItems value="#{paintingTypeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandePaintingLabel_detail}" for="detail" />
-                    <h:inputText id="detail" value="#{demandePaintingController.selected.detail}" title="#{bundle.EditDemandePaintingTitle_detail}" />
-                    <h:outputLabel value="#{bundle.EditDemandePaintingLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandePaintingController.selected.id}" title="#{bundle.EditDemandePaintingTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{demandePaintingController.update}" value="#{bundle.EditDemandePaintingSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditDemandePaintingViewLink}"/>
-                <br />
-                <h:commandLink action="#{demandePaintingController.prepareList}" value="#{bundle.EditDemandePaintingShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditDemandePaintingIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="DemandePaintingEditDlg" widgetVar="DemandePaintingEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDemandePaintingTitle}">
+            <h:form id="DemandePaintingEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandePaintingController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDemandePaintingLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandePaintingController.selected.demandeService}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandePaintingLabel_painting}" for="painting" />
+                        <p:selectOneMenu id="painting" value="#{demandePaintingController.selected.painting}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paintingTypeController.itemsAvailableSelectOne}"
+                                           var="paintingItem"
+                                           itemValue="#{paintingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandePaintingLabel_detail}" for="detail" />
+                        <p:inputText id="detail" value="#{demandePaintingController.selected.detail}" title="#{bundle.EditDemandePaintingTitle_detail}" />
+                        <p:outputLabel value="#{bundle.EditDemandePaintingLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandePaintingController.selected.id}" title="#{bundle.EditDemandePaintingTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandePaintingController.update}" value="#{bundle.Save}" update="display,:DemandePaintingListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DemandePaintingEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandePaintingEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

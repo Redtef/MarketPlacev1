@@ -3,44 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDemandeCleaningTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDemandeCleaningLabel_nbrCleaner}"/>
-                    <h:outputText value="#{demandeCleaningController.selected.nbrCleaner}" title="#{bundle.ViewDemandeCleaningTitle_nbrCleaner}"/>
-                    <h:outputText value="#{bundle.ViewDemandeCleaningLabel_demandeService}"/>
-                    <h:outputText value="#{demandeCleaningController.selected.demandeService}" title="#{bundle.ViewDemandeCleaningTitle_demandeService}"/>
-                    <h:outputText value="#{bundle.ViewDemandeCleaningLabel_nbrHeures}"/>
-                    <h:outputText value="#{demandeCleaningController.selected.nbrHeures}" title="#{bundle.ViewDemandeCleaningTitle_nbrHeures}"/>
-                    <h:outputText value="#{bundle.ViewDemandeCleaningLabel_bringEquipement}"/>
-                    <h:outputText value="#{demandeCleaningController.selected.bringEquipement}" title="#{bundle.ViewDemandeCleaningTitle_bringEquipement}"/>
-                    <h:outputText value="#{bundle.ViewDemandeCleaningLabel_id}"/>
-                    <h:outputText value="#{demandeCleaningController.selected.id}" title="#{bundle.ViewDemandeCleaningTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{demandeCleaningController.destroyAndView}" value="#{bundle.ViewDemandeCleaningDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewDemandeCleaningEditLink}"/>
-                <br />
-                <h:commandLink action="#{demandeCleaningController.prepareCreate}" value="#{bundle.ViewDemandeCleaningCreateLink}" />
-                <br />
-                <h:commandLink action="#{demandeCleaningController.prepareList}" value="#{bundle.ViewDemandeCleaningShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewDemandeCleaningIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="DemandeCleaningViewDlg" widgetVar="DemandeCleaningViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDemandeCleaningTitle}">
+            <h:form id="DemandeCleaningViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeCleaningController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDemandeCleaningLabel_nbrCleaner}"/>
+                        <h:outputText value="#{demandeCleaningController.selected.nbrCleaner}" title="#{bundle.ViewDemandeCleaningTitle_nbrCleaner}"/>
+                        <h:outputText value="#{bundle.ViewDemandeCleaningLabel_demandeService}"/>
+                        <h:outputText value="#{demandeCleaningController.selected.demandeService}" title="#{bundle.ViewDemandeCleaningTitle_demandeService}"/>
+                        <h:outputText value="#{bundle.ViewDemandeCleaningLabel_nbrHeures}"/>
+                        <h:outputText value="#{demandeCleaningController.selected.nbrHeures}" title="#{bundle.ViewDemandeCleaningTitle_nbrHeures}"/>
+                        <h:outputText value="#{bundle.ViewDemandeCleaningLabel_bringEquipement}"/>
+                        <p:selectBooleanCheckbox value="#{demandeCleaningController.selected.bringEquipement}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDemandeCleaningLabel_id}"/>
+                        <h:outputText value="#{demandeCleaningController.selected.id}" title="#{bundle.ViewDemandeCleaningTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DemandeCleaningViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

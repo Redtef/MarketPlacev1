@@ -3,53 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListTimingTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListTimingEmpty}" rendered="#{timingController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{timingController.items.rowCount > 0}">
-                    <h:outputText value="#{timingController.pagination.pageFirstItem + 1}..#{timingController.pagination.pageLastItem + 1}/#{timingController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{timingController.previous}" value="#{bundle.Previous} #{timingController.pagination.pageSize}" rendered="#{timingController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{timingController.next}" value="#{bundle.Next} #{timingController.pagination.pageSize}" rendered="#{timingController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{timingController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="TimingListForm">
+                <p:panel header="#{bundle.ListTimingTitle}">
+                    <p:dataTable id="datalist" value="#{timingController.items}" var="item"
+                                 selectionMode="single" selection="#{timingController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTimingTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTimingTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{timingController.prepareView}" value="#{bundle.ListTimingViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{timingController.prepareEdit}" value="#{bundle.ListTimingEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{timingController.destroy}" value="#{bundle.ListTimingDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{timingController.prepareCreate}" value="#{bundle.ListTimingCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListTimingIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{timingController.prepareCreate}" update=":TimingCreateForm" oncomplete="PF('TimingCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TimingViewForm" oncomplete="PF('TimingViewDialog').show()" disabled="#{empty timingController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TimingEditForm" oncomplete="PF('TimingEditDialog').show()" disabled="#{empty timingController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{timingController.destroy}" update=":growl,datalist" disabled="#{empty timingController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

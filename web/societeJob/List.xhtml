@@ -3,65 +3,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListSocieteJobTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListSocieteJobEmpty}" rendered="#{societeJobController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{societeJobController.items.rowCount > 0}">
-                    <h:outputText value="#{societeJobController.pagination.pageFirstItem + 1}..#{societeJobController.pagination.pageLastItem + 1}/#{societeJobController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{societeJobController.previous}" value="#{bundle.Previous} #{societeJobController.pagination.pageSize}" rendered="#{societeJobController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{societeJobController.next}" value="#{bundle.Next} #{societeJobController.pagination.pageSize}" rendered="#{societeJobController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{societeJobController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="SocieteJobListForm">
+                <p:panel header="#{bundle.ListSocieteJobTitle}">
+                    <p:dataTable id="datalist" value="#{societeJobController.items}" var="item"
+                                 selectionMode="single" selection="#{societeJobController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteJobTitle_societe}"/>
                             </f:facet>
                             <h:outputText value="#{item.societe}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteJobTitle_secteur}"/>
                             </f:facet>
                             <h:outputText value="#{item.secteur}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteJobTitle_service}"/>
                             </f:facet>
                             <h:outputText value="#{item.service}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSocieteJobTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{societeJobController.prepareView}" value="#{bundle.ListSocieteJobViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{societeJobController.prepareEdit}" value="#{bundle.ListSocieteJobEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{societeJobController.destroy}" value="#{bundle.ListSocieteJobDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{societeJobController.prepareCreate}" value="#{bundle.ListSocieteJobCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListSocieteJobIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{societeJobController.prepareCreate}" update=":SocieteJobCreateForm" oncomplete="PF('SocieteJobCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SocieteJobViewForm" oncomplete="PF('SocieteJobViewDialog').show()" disabled="#{empty societeJobController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SocieteJobEditForm" oncomplete="PF('SocieteJobEditDialog').show()" disabled="#{empty societeJobController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{societeJobController.destroy}" update=":growl,datalist" disabled="#{empty societeJobController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

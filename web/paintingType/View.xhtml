@@ -3,38 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewPaintingTypeTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewPaintingTypeLabel_nom}"/>
-                    <h:outputText value="#{paintingTypeController.selected.nom}" title="#{bundle.ViewPaintingTypeTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewPaintingTypeLabel_id}"/>
-                    <h:outputText value="#{paintingTypeController.selected.id}" title="#{bundle.ViewPaintingTypeTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{paintingTypeController.destroyAndView}" value="#{bundle.ViewPaintingTypeDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewPaintingTypeEditLink}"/>
-                <br />
-                <h:commandLink action="#{paintingTypeController.prepareCreate}" value="#{bundle.ViewPaintingTypeCreateLink}" />
-                <br />
-                <h:commandLink action="#{paintingTypeController.prepareList}" value="#{bundle.ViewPaintingTypeShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewPaintingTypeIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="PaintingTypeViewDlg" widgetVar="PaintingTypeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaintingTypeTitle}">
+            <h:form id="PaintingTypeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paintingTypeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaintingTypeLabel_nom}"/>
+                        <h:outputText value="#{paintingTypeController.selected.nom}" title="#{bundle.ViewPaintingTypeTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewPaintingTypeLabel_id}"/>
+                        <h:outputText value="#{paintingTypeController.selected.id}" title="#{bundle.ViewPaintingTypeTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaintingTypeViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

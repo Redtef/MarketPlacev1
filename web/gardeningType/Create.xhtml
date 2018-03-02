@@ -3,33 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateGardeningTypeTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateGardeningTypeLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{gardeningTypeController.selected.id}" title="#{bundle.CreateGardeningTypeTitle_id}" />
-                    <h:outputLabel value="#{bundle.CreateGardeningTypeLabel_nom}" for="nom" />
-                    <h:inputText id="nom" value="#{gardeningTypeController.selected.nom}" title="#{bundle.CreateGardeningTypeTitle_nom}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{gardeningTypeController.create}" value="#{bundle.CreateGardeningTypeSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{gardeningTypeController.prepareList}" value="#{bundle.CreateGardeningTypeShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateGardeningTypeIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="GardeningTypeCreateDlg" widgetVar="GardeningTypeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGardeningTypeTitle}">
+            <h:form id="GardeningTypeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gardeningTypeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGardeningTypeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{gardeningTypeController.selected.id}" title="#{bundle.CreateGardeningTypeTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateGardeningTypeLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{gardeningTypeController.selected.nom}" title="#{bundle.CreateGardeningTypeTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gardeningTypeController.create}" value="#{bundle.Save}" update="display,:GardeningTypeListForm:datalist,:growl" oncomplete="handleSubmit(args,'GardeningTypeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GardeningTypeCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

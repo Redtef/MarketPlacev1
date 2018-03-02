@@ -3,89 +3,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDemandeServiceTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_datedemande}" for="datedemande" />
-                    <h:inputText id="datedemande" value="#{demandeServiceController.selected.datedemande}" title="#{bundle.CreateDemandeServiceTitle_datedemande}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_typeDemande}" for="typeDemande" />
-                    <h:selectOneMenu id="typeDemande" value="#{demandeServiceController.selected.typeDemande}" title="#{bundle.CreateDemandeServiceTitle_typeDemande}" >
-                        <f:selectItems value="#{typeDemandeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_client}" for="client" />
-                    <h:selectOneMenu id="client" value="#{demandeServiceController.selected.client}" title="#{bundle.CreateDemandeServiceTitle_client}" >
-                        <f:selectItems value="#{clientController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_timing}" for="timing" />
-                    <h:selectOneMenu id="timing" value="#{demandeServiceController.selected.timing}" title="#{bundle.CreateDemandeServiceTitle_timing}" >
-                        <f:selectItems value="#{timingController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_detail}" for="detail" />
-                    <h:inputText id="detail" value="#{demandeServiceController.selected.detail}" title="#{bundle.CreateDemandeServiceTitle_detail}" />
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_secteur}" for="secteur" />
-                    <h:selectOneMenu id="secteur" value="#{demandeServiceController.selected.secteur}" title="#{bundle.CreateDemandeServiceTitle_secteur}" >
-                        <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_societe}" for="societe" />
-                    <h:selectOneMenu id="societe" value="#{demandeServiceController.selected.societe}" title="#{bundle.CreateDemandeServiceTitle_societe}" >
-                        <f:selectItems value="#{societeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_prixHt}" for="prixHt" />
-                    <h:inputText id="prixHt" value="#{demandeServiceController.selected.prixHt}" title="#{bundle.CreateDemandeServiceTitle_prixHt}" />
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_prixTtc}" for="prixTtc" />
-                    <h:inputText id="prixTtc" value="#{demandeServiceController.selected.prixTtc}" title="#{bundle.CreateDemandeServiceTitle_prixTtc}" />
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_servicePricing}" for="servicePricing" />
-                    <h:selectOneMenu id="servicePricing" value="#{demandeServiceController.selected.servicePricing}" title="#{bundle.CreateDemandeServiceTitle_servicePricing}" >
-                        <f:selectItems value="#{servicePricingController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_service}" for="service" />
-                    <h:selectOneMenu id="service" value="#{demandeServiceController.selected.service}" title="#{bundle.CreateDemandeServiceTitle_service}" >
-                        <f:selectItems value="#{serviceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_planning}" for="planning" />
-                    <h:selectOneMenu id="planning" value="#{demandeServiceController.selected.planning}" title="#{bundle.CreateDemandeServiceTitle_planning}" >
-                        <f:selectItems value="#{planningController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_managerConfirmation}" for="managerConfirmation" />
-                    <h:selectOneMenu id="managerConfirmation" value="#{demandeServiceController.selected.managerConfirmation}" title="#{bundle.CreateDemandeServiceTitle_managerConfirmation}" >
-                        <f:selectItems value="#{managerController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateConfirmation}" for="dateConfirmation" />
-                    <h:inputText id="dateConfirmation" value="#{demandeServiceController.selected.dateConfirmation}" title="#{bundle.CreateDemandeServiceTitle_dateConfirmation}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateDernierModif}" for="dateDernierModif" />
-                    <h:inputText id="dateDernierModif" value="#{demandeServiceController.selected.dateDernierModif}" title="#{bundle.CreateDemandeServiceTitle_dateDernierModif}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateSuppression}" for="dateSuppression" />
-                    <h:inputText id="dateSuppression" value="#{demandeServiceController.selected.dateSuppression}" title="#{bundle.CreateDemandeServiceTitle_dateSuppression}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDemandeServiceLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandeServiceController.selected.id}" title="#{bundle.CreateDemandeServiceTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{demandeServiceController.create}" value="#{bundle.CreateDemandeServiceSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{demandeServiceController.prepareList}" value="#{bundle.CreateDemandeServiceShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateDemandeServiceIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="DemandeServiceCreateDlg" widgetVar="DemandeServiceCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDemandeServiceTitle}">
+            <h:form id="DemandeServiceCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeServiceController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_datedemande}" for="datedemande" />
+                        <p:calendar id="datedemande" pattern="MM/dd/yyyy" value="#{demandeServiceController.selected.datedemande}" title="#{bundle.EditDemandeServiceTitle_datedemande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_typeDemande}" for="typeDemande" />
+                        <p:selectOneMenu id="typeDemande" value="#{demandeServiceController.selected.typeDemande}" >
+                            <f:selectItems value="#{typeDemandeController.itemsAvailableSelectOne}"
+                                           var="typeDemandeItem"
+                                           itemValue="#{typeDemandeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_client}" for="client" />
+                        <p:selectOneMenu id="client" value="#{demandeServiceController.selected.client}" >
+                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
+                                           var="clientItem"
+                                           itemValue="#{clientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_detail}" for="detail" />
+                        <p:inputText id="detail" value="#{demandeServiceController.selected.detail}" title="#{bundle.CreateDemandeServiceTitle_detail}" />
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_secteur}" for="secteur" />
+                        <p:selectOneMenu id="secteur" value="#{demandeServiceController.selected.secteur}" >
+                            <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"
+                                           var="secteurItem"
+                                           itemValue="#{secteurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_societe}" for="societe" />
+                        <p:selectOneMenu id="societe" value="#{demandeServiceController.selected.societe}" >
+                            <f:selectItems value="#{societeController.itemsAvailableSelectOne}"
+                                           var="societeItem"
+                                           itemValue="#{societeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_prixHt}" for="prixHt" />
+                        <p:inputText id="prixHt" value="#{demandeServiceController.selected.prixHt}" title="#{bundle.CreateDemandeServiceTitle_prixHt}" />
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_prixTtc}" for="prixTtc" />
+                        <p:inputText id="prixTtc" value="#{demandeServiceController.selected.prixTtc}" title="#{bundle.CreateDemandeServiceTitle_prixTtc}" />
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_servicePricing}" for="servicePricing" />
+                        <p:selectOneMenu id="servicePricing" value="#{demandeServiceController.selected.servicePricing}" >
+                            <f:selectItems value="#{servicePricingController.itemsAvailableSelectOne}"
+                                           var="servicePricingItem"
+                                           itemValue="#{servicePricingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_service}" for="service" />
+                        <p:selectOneMenu id="service" value="#{demandeServiceController.selected.service}" >
+                            <f:selectItems value="#{serviceController.itemsAvailableSelectOne}"
+                                           var="serviceItem"
+                                           itemValue="#{serviceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_planning}" for="planning" />
+                        <p:selectOneMenu id="planning" value="#{demandeServiceController.selected.planning}" >
+                            <f:selectItems value="#{planningController.itemsAvailableSelectOne}"
+                                           var="planningItem"
+                                           itemValue="#{planningItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_managerConfirmation}" for="managerConfirmation" />
+                        <p:selectOneMenu id="managerConfirmation" value="#{demandeServiceController.selected.managerConfirmation}" >
+                            <f:selectItems value="#{managerController.itemsAvailableSelectOne}"
+                                           var="managerConfirmationItem"
+                                           itemValue="#{managerConfirmationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateConfirmation}" for="dateConfirmation" />
+                        <p:calendar id="dateConfirmation" pattern="MM/dd/yyyy" value="#{demandeServiceController.selected.dateConfirmation}" title="#{bundle.EditDemandeServiceTitle_dateConfirmation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateDernierModif}" for="dateDernierModif" />
+                        <p:calendar id="dateDernierModif" pattern="MM/dd/yyyy" value="#{demandeServiceController.selected.dateDernierModif}" title="#{bundle.EditDemandeServiceTitle_dateDernierModif}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{demandeServiceController.selected.dateSuppression}" title="#{bundle.EditDemandeServiceTitle_dateSuppression}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDemandeServiceLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandeServiceController.selected.id}" title="#{bundle.CreateDemandeServiceTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandeServiceController.create}" value="#{bundle.Save}" update="display,:DemandeServiceListForm:datalist,:growl" oncomplete="handleSubmit(args,'DemandeServiceCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandeServiceCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

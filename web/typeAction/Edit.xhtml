@@ -3,34 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditTypeActionTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditTypeActionLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{typeActionController.selected.name}" title="#{bundle.EditTypeActionTitle_name}" />
-                    <h:outputLabel value="#{bundle.EditTypeActionLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{typeActionController.selected.id}" title="#{bundle.EditTypeActionTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{typeActionController.update}" value="#{bundle.EditTypeActionSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditTypeActionViewLink}"/>
-                <br />
-                <h:commandLink action="#{typeActionController.prepareList}" value="#{bundle.EditTypeActionShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditTypeActionIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="TypeActionEditDlg" widgetVar="TypeActionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTypeActionTitle}">
+            <h:form id="TypeActionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{typeActionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTypeActionLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{typeActionController.selected.name}" title="#{bundle.EditTypeActionTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditTypeActionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{typeActionController.selected.id}" title="#{bundle.EditTypeActionTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{typeActionController.update}" value="#{bundle.Save}" update="display,:TypeActionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TypeActionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TypeActionEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

@@ -3,38 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewVoitureMarqueTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewVoitureMarqueLabel_id}"/>
-                    <h:outputText value="#{voitureMarqueController.selected.id}" title="#{bundle.ViewVoitureMarqueTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewVoitureMarqueLabel_nom}"/>
-                    <h:outputText value="#{voitureMarqueController.selected.nom}" title="#{bundle.ViewVoitureMarqueTitle_nom}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{voitureMarqueController.destroyAndView}" value="#{bundle.ViewVoitureMarqueDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewVoitureMarqueEditLink}"/>
-                <br />
-                <h:commandLink action="#{voitureMarqueController.prepareCreate}" value="#{bundle.ViewVoitureMarqueCreateLink}" />
-                <br />
-                <h:commandLink action="#{voitureMarqueController.prepareList}" value="#{bundle.ViewVoitureMarqueShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewVoitureMarqueIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="VoitureMarqueViewDlg" widgetVar="VoitureMarqueViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVoitureMarqueTitle}">
+            <h:form id="VoitureMarqueViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureMarqueController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVoitureMarqueLabel_id}"/>
+                        <h:outputText value="#{voitureMarqueController.selected.id}" title="#{bundle.ViewVoitureMarqueTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewVoitureMarqueLabel_nom}"/>
+                        <h:outputText value="#{voitureMarqueController.selected.nom}" title="#{bundle.ViewVoitureMarqueTitle_nom}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VoitureMarqueViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

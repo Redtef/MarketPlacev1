@@ -3,53 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListVoitureMarqueTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListVoitureMarqueEmpty}" rendered="#{voitureMarqueController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{voitureMarqueController.items.rowCount > 0}">
-                    <h:outputText value="#{voitureMarqueController.pagination.pageFirstItem + 1}..#{voitureMarqueController.pagination.pageLastItem + 1}/#{voitureMarqueController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{voitureMarqueController.previous}" value="#{bundle.Previous} #{voitureMarqueController.pagination.pageSize}" rendered="#{voitureMarqueController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{voitureMarqueController.next}" value="#{bundle.Next} #{voitureMarqueController.pagination.pageSize}" rendered="#{voitureMarqueController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{voitureMarqueController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="VoitureMarqueListForm">
+                <p:panel header="#{bundle.ListVoitureMarqueTitle}">
+                    <p:dataTable id="datalist" value="#{voitureMarqueController.items}" var="item"
+                                 selectionMode="single" selection="#{voitureMarqueController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVoitureMarqueTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVoitureMarqueTitle_nom}"/>
                             </f:facet>
                             <h:outputText value="#{item.nom}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{voitureMarqueController.prepareView}" value="#{bundle.ListVoitureMarqueViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{voitureMarqueController.prepareEdit}" value="#{bundle.ListVoitureMarqueEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{voitureMarqueController.destroy}" value="#{bundle.ListVoitureMarqueDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{voitureMarqueController.prepareCreate}" value="#{bundle.ListVoitureMarqueCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListVoitureMarqueIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{voitureMarqueController.prepareCreate}" update=":VoitureMarqueCreateForm" oncomplete="PF('VoitureMarqueCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VoitureMarqueViewForm" oncomplete="PF('VoitureMarqueViewDialog').show()" disabled="#{empty voitureMarqueController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VoitureMarqueEditForm" oncomplete="PF('VoitureMarqueEditDialog').show()" disabled="#{empty voitureMarqueController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{voitureMarqueController.destroy}" update=":growl,datalist" disabled="#{empty voitureMarqueController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

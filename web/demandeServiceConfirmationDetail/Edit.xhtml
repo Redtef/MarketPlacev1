@@ -3,48 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditDemandeServiceConfirmationDetailTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_manager}" for="manager" />
-                    <h:selectOneMenu id="manager" value="#{demandeServiceConfirmationDetailController.selected.manager}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_manager}" >
-                        <f:selectItems value="#{managerController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_typeAction}" for="typeAction" />
-                    <h:selectOneMenu id="typeAction" value="#{demandeServiceConfirmationDetailController.selected.typeAction}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_typeAction}" >
-                        <f:selectItems value="#{typeActionController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_dateAction}" for="dateAction" />
-                    <h:inputText id="dateAction" value="#{demandeServiceConfirmationDetailController.selected.dateAction}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_dateAction}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandeServiceConfirmationDetailController.selected.demandeService}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandeServiceConfirmationDetailController.selected.id}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{demandeServiceConfirmationDetailController.update}" value="#{bundle.EditDemandeServiceConfirmationDetailSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditDemandeServiceConfirmationDetailViewLink}"/>
-                <br />
-                <h:commandLink action="#{demandeServiceConfirmationDetailController.prepareList}" value="#{bundle.EditDemandeServiceConfirmationDetailShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditDemandeServiceConfirmationDetailIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="DemandeServiceConfirmationDetailEditDlg" widgetVar="DemandeServiceConfirmationDetailEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDemandeServiceConfirmationDetailTitle}">
+            <h:form id="DemandeServiceConfirmationDetailEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeServiceConfirmationDetailController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_manager}" for="manager" />
+                        <p:selectOneMenu id="manager" value="#{demandeServiceConfirmationDetailController.selected.manager}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{managerController.itemsAvailableSelectOne}"
+                                           var="managerItem"
+                                           itemValue="#{managerItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_typeAction}" for="typeAction" />
+                        <p:selectOneMenu id="typeAction" value="#{demandeServiceConfirmationDetailController.selected.typeAction}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{typeActionController.itemsAvailableSelectOne}"
+                                           var="typeActionItem"
+                                           itemValue="#{typeActionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_dateAction}" for="dateAction" />
+                        <p:calendar id="dateAction" pattern="MM/dd/yyyy" value="#{demandeServiceConfirmationDetailController.selected.dateAction}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_dateAction}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandeServiceConfirmationDetailController.selected.demandeService}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandeServiceConfirmationDetailLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandeServiceConfirmationDetailController.selected.id}" title="#{bundle.EditDemandeServiceConfirmationDetailTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandeServiceConfirmationDetailController.update}" value="#{bundle.Save}" update="display,:DemandeServiceConfirmationDetailListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DemandeServiceConfirmationDetailEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandeServiceConfirmationDetailEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

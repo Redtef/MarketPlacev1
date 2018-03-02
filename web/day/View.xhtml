@@ -3,38 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDayTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDayLabel_nom}"/>
-                    <h:outputText value="#{dayController.selected.nom}" title="#{bundle.ViewDayTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewDayLabel_id}"/>
-                    <h:outputText value="#{dayController.selected.id}" title="#{bundle.ViewDayTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{dayController.destroyAndView}" value="#{bundle.ViewDayDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewDayEditLink}"/>
-                <br />
-                <h:commandLink action="#{dayController.prepareCreate}" value="#{bundle.ViewDayCreateLink}" />
-                <br />
-                <h:commandLink action="#{dayController.prepareList}" value="#{bundle.ViewDayShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewDayIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="DayViewDlg" widgetVar="DayViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDayTitle}">
+            <h:form id="DayViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dayController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDayLabel_nom}"/>
+                        <h:outputText value="#{dayController.selected.nom}" title="#{bundle.ViewDayTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewDayLabel_id}"/>
+                        <h:outputText value="#{dayController.selected.id}" title="#{bundle.ViewDayTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DayViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

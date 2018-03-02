@@ -3,40 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditPlanningItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditPlanningItemLabel_day}" for="day" />
-                    <h:selectOneMenu id="day" value="#{planningItemController.selected.day}" title="#{bundle.EditPlanningItemTitle_day}" >
-                        <f:selectItems value="#{dayController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditPlanningItemLabel_planning}" for="planning" />
-                    <h:selectOneMenu id="planning" value="#{planningItemController.selected.planning}" title="#{bundle.EditPlanningItemTitle_planning}" >
-                        <f:selectItems value="#{planningController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditPlanningItemLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{planningItemController.selected.id}" title="#{bundle.EditPlanningItemTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{planningItemController.update}" value="#{bundle.EditPlanningItemSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditPlanningItemViewLink}"/>
-                <br />
-                <h:commandLink action="#{planningItemController.prepareList}" value="#{bundle.EditPlanningItemShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditPlanningItemIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="PlanningItemEditDlg" widgetVar="PlanningItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPlanningItemTitle}">
+            <h:form id="PlanningItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{planningItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPlanningItemLabel_timing}" for="timing" />
+                        <p:selectOneMenu id="timing" value="#{planningItemController.selected.timing}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{timingController.itemsAvailableSelectOne}"
+                                           var="timingItem"
+                                           itemValue="#{timingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPlanningItemLabel_day}" for="day" />
+                        <p:selectOneMenu id="day" value="#{planningItemController.selected.day}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dayController.itemsAvailableSelectOne}"
+                                           var="dayItem"
+                                           itemValue="#{dayItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPlanningItemLabel_planning}" for="planning" />
+                        <p:selectOneMenu id="planning" value="#{planningItemController.selected.planning}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{planningController.itemsAvailableSelectOne}"
+                                           var="planningItem"
+                                           itemValue="#{planningItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPlanningItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{planningItemController.selected.id}" title="#{bundle.EditPlanningItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{planningItemController.update}" value="#{bundle.Save}" update="display,:PlanningItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlanningItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PlanningItemEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

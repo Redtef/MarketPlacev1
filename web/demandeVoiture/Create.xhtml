@@ -3,39 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateDemandeVoitureTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDemandeVoitureLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandeVoitureController.selected.demandeService}" title="#{bundle.CreateDemandeVoitureTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeVoitureLabel_voiture}" for="voiture" />
-                    <h:selectOneMenu id="voiture" value="#{demandeVoitureController.selected.voiture}" title="#{bundle.CreateDemandeVoitureTitle_voiture}" >
-                        <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDemandeVoitureLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandeVoitureController.selected.id}" title="#{bundle.CreateDemandeVoitureTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{demandeVoitureController.create}" value="#{bundle.CreateDemandeVoitureSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{demandeVoitureController.prepareList}" value="#{bundle.CreateDemandeVoitureShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateDemandeVoitureIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="DemandeVoitureCreateDlg" widgetVar="DemandeVoitureCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDemandeVoitureTitle}">
+            <h:form id="DemandeVoitureCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeVoitureController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDemandeVoitureLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandeVoitureController.selected.demandeService}" >
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeVoitureLabel_voiture}" for="voiture" />
+                        <p:selectOneMenu id="voiture" value="#{demandeVoitureController.selected.voiture}" >
+                            <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"
+                                           var="voitureItem"
+                                           itemValue="#{voitureItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDemandeVoitureLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandeVoitureController.selected.id}" title="#{bundle.CreateDemandeVoitureTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandeVoitureController.create}" value="#{bundle.Save}" update="display,:DemandeVoitureListForm:datalist,:growl" oncomplete="handleSubmit(args,'DemandeVoitureCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandeVoitureCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

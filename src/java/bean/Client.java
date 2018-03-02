@@ -28,6 +28,9 @@ public class Client implements Serializable {
     @ManyToOne
     private Secteur secteur;
     private String adresseComplement;
+    private boolean blocked;
+    
+    
 
     public Client() {
     }
@@ -41,6 +44,15 @@ public class Client implements Serializable {
         this.adresseComplement = adresseComplement;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    
     public String getPrenom() {
         return prenom;
     }

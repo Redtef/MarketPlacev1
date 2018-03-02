@@ -3,40 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewSecteurTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewSecteurLabel_nom}"/>
-                    <h:outputText value="#{secteurController.selected.nom}" title="#{bundle.ViewSecteurTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewSecteurLabel_ville}"/>
-                    <h:outputText value="#{secteurController.selected.ville}" title="#{bundle.ViewSecteurTitle_ville}"/>
-                    <h:outputText value="#{bundle.ViewSecteurLabel_id}"/>
-                    <h:outputText value="#{secteurController.selected.id}" title="#{bundle.ViewSecteurTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{secteurController.destroyAndView}" value="#{bundle.ViewSecteurDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewSecteurEditLink}"/>
-                <br />
-                <h:commandLink action="#{secteurController.prepareCreate}" value="#{bundle.ViewSecteurCreateLink}" />
-                <br />
-                <h:commandLink action="#{secteurController.prepareList}" value="#{bundle.ViewSecteurShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewSecteurIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="SecteurViewDlg" widgetVar="SecteurViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSecteurTitle}">
+            <h:form id="SecteurViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secteurController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSecteurLabel_nom}"/>
+                        <h:outputText value="#{secteurController.selected.nom}" title="#{bundle.ViewSecteurTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewSecteurLabel_ville}"/>
+                        <h:outputText value="#{secteurController.selected.ville}" title="#{bundle.ViewSecteurTitle_ville}"/>
+                        <h:outputText value="#{bundle.ViewSecteurLabel_id}"/>
+                        <h:outputText value="#{secteurController.selected.id}" title="#{bundle.ViewSecteurTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SecteurViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

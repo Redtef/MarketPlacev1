@@ -3,42 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDemandePhotographieTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDemandePhotographieLabel_demandeService}"/>
-                    <h:outputText value="#{demandePhotographieController.selected.demandeService}" title="#{bundle.ViewDemandePhotographieTitle_demandeService}"/>
-                    <h:outputText value="#{bundle.ViewDemandePhotographieLabel_typePhotographie}"/>
-                    <h:outputText value="#{demandePhotographieController.selected.typePhotographie}" title="#{bundle.ViewDemandePhotographieTitle_typePhotographie}"/>
-                    <h:outputText value="#{bundle.ViewDemandePhotographieLabel_videographie}"/>
-                    <h:outputText value="#{demandePhotographieController.selected.videographie}" title="#{bundle.ViewDemandePhotographieTitle_videographie}"/>
-                    <h:outputText value="#{bundle.ViewDemandePhotographieLabel_id}"/>
-                    <h:outputText value="#{demandePhotographieController.selected.id}" title="#{bundle.ViewDemandePhotographieTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{demandePhotographieController.destroyAndView}" value="#{bundle.ViewDemandePhotographieDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewDemandePhotographieEditLink}"/>
-                <br />
-                <h:commandLink action="#{demandePhotographieController.prepareCreate}" value="#{bundle.ViewDemandePhotographieCreateLink}" />
-                <br />
-                <h:commandLink action="#{demandePhotographieController.prepareList}" value="#{bundle.ViewDemandePhotographieShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewDemandePhotographieIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="DemandePhotographieViewDlg" widgetVar="DemandePhotographieViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDemandePhotographieTitle}">
+            <h:form id="DemandePhotographieViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandePhotographieController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDemandePhotographieLabel_demandeService}"/>
+                        <h:outputText value="#{demandePhotographieController.selected.demandeService}" title="#{bundle.ViewDemandePhotographieTitle_demandeService}"/>
+                        <h:outputText value="#{bundle.ViewDemandePhotographieLabel_typePhotographie}"/>
+                        <h:outputText value="#{demandePhotographieController.selected.typePhotographie}" title="#{bundle.ViewDemandePhotographieTitle_typePhotographie}"/>
+                        <h:outputText value="#{bundle.ViewDemandePhotographieLabel_videographie}"/>
+                        <p:selectBooleanCheckbox value="#{demandePhotographieController.selected.videographie}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDemandePhotographieLabel_id}"/>
+                        <h:outputText value="#{demandePhotographieController.selected.id}" title="#{bundle.ViewDemandePhotographieTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DemandePhotographieViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

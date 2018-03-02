@@ -3,53 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListTypeActionTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListTypeActionEmpty}" rendered="#{typeActionController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{typeActionController.items.rowCount > 0}">
-                    <h:outputText value="#{typeActionController.pagination.pageFirstItem + 1}..#{typeActionController.pagination.pageLastItem + 1}/#{typeActionController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{typeActionController.previous}" value="#{bundle.Previous} #{typeActionController.pagination.pageSize}" rendered="#{typeActionController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{typeActionController.next}" value="#{bundle.Next} #{typeActionController.pagination.pageSize}" rendered="#{typeActionController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{typeActionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="TypeActionListForm">
+                <p:panel header="#{bundle.ListTypeActionTitle}">
+                    <p:dataTable id="datalist" value="#{typeActionController.items}" var="item"
+                                 selectionMode="single" selection="#{typeActionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTypeActionTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTypeActionTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{typeActionController.prepareView}" value="#{bundle.ListTypeActionViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{typeActionController.prepareEdit}" value="#{bundle.ListTypeActionEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{typeActionController.destroy}" value="#{bundle.ListTypeActionDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{typeActionController.prepareCreate}" value="#{bundle.ListTypeActionCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListTypeActionIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{typeActionController.prepareCreate}" update=":TypeActionCreateForm" oncomplete="PF('TypeActionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TypeActionViewForm" oncomplete="PF('TypeActionViewDialog').show()" disabled="#{empty typeActionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TypeActionEditForm" oncomplete="PF('TypeActionEditDialog').show()" disabled="#{empty typeActionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{typeActionController.destroy}" update=":growl,datalist" disabled="#{empty typeActionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -3,40 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewCuisineDemandeEventTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_cuisine}"/>
-                    <h:outputText value="#{cuisineDemandeEventController.selected.cuisine}" title="#{bundle.ViewCuisineDemandeEventTitle_cuisine}"/>
-                    <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_demandeEvent}"/>
-                    <h:outputText value="#{cuisineDemandeEventController.selected.demandeEvent}" title="#{bundle.ViewCuisineDemandeEventTitle_demandeEvent}"/>
-                    <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_id}"/>
-                    <h:outputText value="#{cuisineDemandeEventController.selected.id}" title="#{bundle.ViewCuisineDemandeEventTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{cuisineDemandeEventController.destroyAndView}" value="#{bundle.ViewCuisineDemandeEventDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewCuisineDemandeEventEditLink}"/>
-                <br />
-                <h:commandLink action="#{cuisineDemandeEventController.prepareCreate}" value="#{bundle.ViewCuisineDemandeEventCreateLink}" />
-                <br />
-                <h:commandLink action="#{cuisineDemandeEventController.prepareList}" value="#{bundle.ViewCuisineDemandeEventShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewCuisineDemandeEventIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="CuisineDemandeEventViewDlg" widgetVar="CuisineDemandeEventViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCuisineDemandeEventTitle}">
+            <h:form id="CuisineDemandeEventViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cuisineDemandeEventController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_cuisine}"/>
+                        <h:outputText value="#{cuisineDemandeEventController.selected.cuisine}" title="#{bundle.ViewCuisineDemandeEventTitle_cuisine}"/>
+                        <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_demandeEvent}"/>
+                        <h:outputText value="#{cuisineDemandeEventController.selected.demandeEvent}" title="#{bundle.ViewCuisineDemandeEventTitle_demandeEvent}"/>
+                        <h:outputText value="#{bundle.ViewCuisineDemandeEventLabel_id}"/>
+                        <h:outputText value="#{cuisineDemandeEventController.selected.id}" title="#{bundle.ViewCuisineDemandeEventTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CuisineDemandeEventViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

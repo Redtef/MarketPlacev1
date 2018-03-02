@@ -3,36 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditDemandeHandyManTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDemandeHandyManLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandeHandyManController.selected.demandeService}" title="#{bundle.EditDemandeHandyManTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandeHandyManLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandeHandyManController.selected.id}" title="#{bundle.EditDemandeHandyManTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{demandeHandyManController.update}" value="#{bundle.EditDemandeHandyManSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditDemandeHandyManViewLink}"/>
-                <br />
-                <h:commandLink action="#{demandeHandyManController.prepareList}" value="#{bundle.EditDemandeHandyManShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditDemandeHandyManIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="DemandeHandyManEditDlg" widgetVar="DemandeHandyManEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDemandeHandyManTitle}">
+            <h:form id="DemandeHandyManEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandeHandyManController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDemandeHandyManLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandeHandyManController.selected.demandeService}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandeHandyManLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandeHandyManController.selected.id}" title="#{bundle.EditDemandeHandyManTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandeHandyManController.update}" value="#{bundle.Save}" update="display,:DemandeHandyManListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DemandeHandyManEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandeHandyManEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

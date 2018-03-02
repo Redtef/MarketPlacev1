@@ -3,33 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateManagerTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateManagerLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{managerController.selected.password}" title="#{bundle.CreateManagerTitle_password}" />
-                    <h:outputLabel value="#{bundle.CreateManagerLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{managerController.selected.id}" title="#{bundle.CreateManagerTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{managerController.create}" value="#{bundle.CreateManagerSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{managerController.prepareList}" value="#{bundle.CreateManagerShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateManagerIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="ManagerCreateDlg" widgetVar="ManagerCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateManagerTitle}">
+            <h:form id="ManagerCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{managerController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateManagerLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{managerController.selected.password}" title="#{bundle.CreateManagerTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateManagerLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{managerController.selected.id}" title="#{bundle.CreateManagerTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{managerController.create}" value="#{bundle.Save}" update="display,:ManagerListForm:datalist,:growl" oncomplete="handleSubmit(args,'ManagerCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ManagerCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

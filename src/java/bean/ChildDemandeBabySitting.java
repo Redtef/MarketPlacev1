@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,8 +24,19 @@ public class ChildDemandeBabySitting implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int age;
+    @ManyToOne
     private DemandeBabySitting demandeBabySitting;
 
+    public DemandeBabySitting getDemandeBabySitting() {
+        return demandeBabySitting;
+    }
+
+    public void setDemandeBabySitting(DemandeBabySitting demandeBabySitting) {
+        this.demandeBabySitting = demandeBabySitting;
+    }
+
+    
+    
     public int getAge() {
         return age;
     }

@@ -3,38 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditVoitureImageTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditVoitureImageLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{voitureImageController.selected.id}" title="#{bundle.EditVoitureImageTitle_id}" />
-                    <h:outputLabel value="#{bundle.EditVoitureImageLabel_image}" for="image" />
-                    <h:inputText id="image" value="#{voitureImageController.selected.image}" title="#{bundle.EditVoitureImageTitle_image}" />
-                    <h:outputLabel value="#{bundle.EditVoitureImageLabel_voiture}" for="voiture" />
-                    <h:selectOneMenu id="voiture" value="#{voitureImageController.selected.voiture}" title="#{bundle.EditVoitureImageTitle_voiture}" >
-                        <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{voitureImageController.update}" value="#{bundle.EditVoitureImageSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditVoitureImageViewLink}"/>
-                <br />
-                <h:commandLink action="#{voitureImageController.prepareList}" value="#{bundle.EditVoitureImageShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditVoitureImageIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="VoitureImageEditDlg" widgetVar="VoitureImageEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVoitureImageTitle}">
+            <h:form id="VoitureImageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureImageController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVoitureImageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{voitureImageController.selected.id}" title="#{bundle.EditVoitureImageTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditVoitureImageLabel_image}" for="image" />
+                        <p:inputText id="image" value="#{voitureImageController.selected.image}" title="#{bundle.EditVoitureImageTitle_image}" />
+                        <p:outputLabel value="#{bundle.EditVoitureImageLabel_voiture}" for="voiture" />
+                        <p:selectOneMenu id="voiture" value="#{voitureImageController.selected.voiture}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"
+                                           var="voitureItem"
+                                           itemValue="#{voitureItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voitureImageController.update}" value="#{bundle.Save}" update="display,:VoitureImageListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VoitureImageEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoitureImageEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

@@ -3,42 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditDemandePhotographieTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDemandePhotographieLabel_demandeService}" for="demandeService" />
-                    <h:selectOneMenu id="demandeService" value="#{demandePhotographieController.selected.demandeService}" title="#{bundle.EditDemandePhotographieTitle_demandeService}" >
-                        <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandePhotographieLabel_typePhotographie}" for="typePhotographie" />
-                    <h:selectOneMenu id="typePhotographie" value="#{demandePhotographieController.selected.typePhotographie}" title="#{bundle.EditDemandePhotographieTitle_typePhotographie}" >
-                        <f:selectItems value="#{photographieTypeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDemandePhotographieLabel_videographie}" for="videographie" />
-                    <h:inputText id="videographie" value="#{demandePhotographieController.selected.videographie}" title="#{bundle.EditDemandePhotographieTitle_videographie}" />
-                    <h:outputLabel value="#{bundle.EditDemandePhotographieLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{demandePhotographieController.selected.id}" title="#{bundle.EditDemandePhotographieTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{demandePhotographieController.update}" value="#{bundle.EditDemandePhotographieSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditDemandePhotographieViewLink}"/>
-                <br />
-                <h:commandLink action="#{demandePhotographieController.prepareList}" value="#{bundle.EditDemandePhotographieShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditDemandePhotographieIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="DemandePhotographieEditDlg" widgetVar="DemandePhotographieEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDemandePhotographieTitle}">
+            <h:form id="DemandePhotographieEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{demandePhotographieController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDemandePhotographieLabel_demandeService}" for="demandeService" />
+                        <p:selectOneMenu id="demandeService" value="#{demandePhotographieController.selected.demandeService}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{demandeServiceController.itemsAvailableSelectOne}"
+                                           var="demandeServiceItem"
+                                           itemValue="#{demandeServiceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandePhotographieLabel_typePhotographie}" for="typePhotographie" />
+                        <p:selectOneMenu id="typePhotographie" value="#{demandePhotographieController.selected.typePhotographie}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{photographieTypeController.itemsAvailableSelectOne}"
+                                           var="typePhotographieItem"
+                                           itemValue="#{typePhotographieItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDemandePhotographieLabel_videographie}" for="videographie" />
+                        <p:selectBooleanCheckbox id="videographie" value="#{demandePhotographieController.selected.videographie}" />
+                        <p:outputLabel value="#{bundle.EditDemandePhotographieLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{demandePhotographieController.selected.id}" title="#{bundle.EditDemandePhotographieTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{demandePhotographieController.update}" value="#{bundle.Save}" update="display,:DemandePhotographieListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DemandePhotographieEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DemandePhotographieEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

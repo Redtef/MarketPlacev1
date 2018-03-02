@@ -3,38 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEventTypeTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEventTypeLabel_nom}"/>
-                    <h:outputText value="#{eventTypeController.selected.nom}" title="#{bundle.ViewEventTypeTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewEventTypeLabel_id}"/>
-                    <h:outputText value="#{eventTypeController.selected.id}" title="#{bundle.ViewEventTypeTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{eventTypeController.destroyAndView}" value="#{bundle.ViewEventTypeDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEventTypeEditLink}"/>
-                <br />
-                <h:commandLink action="#{eventTypeController.prepareCreate}" value="#{bundle.ViewEventTypeCreateLink}" />
-                <br />
-                <h:commandLink action="#{eventTypeController.prepareList}" value="#{bundle.ViewEventTypeShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewEventTypeIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="EventTypeViewDlg" widgetVar="EventTypeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEventTypeTitle}">
+            <h:form id="EventTypeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{eventTypeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEventTypeLabel_nom}"/>
+                        <h:outputText value="#{eventTypeController.selected.nom}" title="#{bundle.ViewEventTypeTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewEventTypeLabel_id}"/>
+                        <h:outputText value="#{eventTypeController.selected.id}" title="#{bundle.ViewEventTypeTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EventTypeViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

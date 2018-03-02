@@ -3,39 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreatePlanningItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_day}" for="day" />
-                    <h:selectOneMenu id="day" value="#{planningItemController.selected.day}" title="#{bundle.CreatePlanningItemTitle_day}" >
-                        <f:selectItems value="#{dayController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_planning}" for="planning" />
-                    <h:selectOneMenu id="planning" value="#{planningItemController.selected.planning}" title="#{bundle.CreatePlanningItemTitle_planning}" >
-                        <f:selectItems value="#{planningController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreatePlanningItemLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{planningItemController.selected.id}" title="#{bundle.CreatePlanningItemTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{planningItemController.create}" value="#{bundle.CreatePlanningItemSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{planningItemController.prepareList}" value="#{bundle.CreatePlanningItemShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreatePlanningItemIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="PlanningItemCreateDlg" widgetVar="PlanningItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePlanningItemTitle}">
+            <h:form id="PlanningItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{planningItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePlanningItemLabel_timing}" for="timing" />
+                        <p:selectOneMenu id="timing" value="#{planningItemController.selected.timing}" >
+                            <f:selectItems value="#{timingController.itemsAvailableSelectOne}"
+                                           var="timingItem"
+                                           itemValue="#{timingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePlanningItemLabel_day}" for="day" />
+                        <p:selectOneMenu id="day" value="#{planningItemController.selected.day}" >
+                            <f:selectItems value="#{dayController.itemsAvailableSelectOne}"
+                                           var="dayItem"
+                                           itemValue="#{dayItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePlanningItemLabel_planning}" for="planning" />
+                        <p:selectOneMenu id="planning" value="#{planningItemController.selected.planning}" >
+                            <f:selectItems value="#{planningController.itemsAvailableSelectOne}"
+                                           var="planningItem"
+                                           itemValue="#{planningItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePlanningItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{planningItemController.selected.id}" title="#{bundle.CreatePlanningItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{planningItemController.create}" value="#{bundle.Save}" update="display,:PlanningItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'PlanningItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PlanningItemCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

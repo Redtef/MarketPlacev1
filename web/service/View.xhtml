@@ -3,40 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewServiceTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewServiceLabel_nom}"/>
-                    <h:outputText value="#{serviceController.selected.nom}" title="#{bundle.ViewServiceTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewServiceLabel_categorie}"/>
-                    <h:outputText value="#{serviceController.selected.categorie}" title="#{bundle.ViewServiceTitle_categorie}"/>
-                    <h:outputText value="#{bundle.ViewServiceLabel_id}"/>
-                    <h:outputText value="#{serviceController.selected.id}" title="#{bundle.ViewServiceTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{serviceController.destroyAndView}" value="#{bundle.ViewServiceDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewServiceEditLink}"/>
-                <br />
-                <h:commandLink action="#{serviceController.prepareCreate}" value="#{bundle.ViewServiceCreateLink}" />
-                <br />
-                <h:commandLink action="#{serviceController.prepareList}" value="#{bundle.ViewServiceShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewServiceIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="ServiceViewDlg" widgetVar="ServiceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewServiceTitle}">
+            <h:form id="ServiceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{serviceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewServiceLabel_nom}"/>
+                        <h:outputText value="#{serviceController.selected.nom}" title="#{bundle.ViewServiceTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewServiceLabel_categorie}"/>
+                        <h:outputText value="#{serviceController.selected.categorie}" title="#{bundle.ViewServiceTitle_categorie}"/>
+                        <h:outputText value="#{bundle.ViewServiceLabel_id}"/>
+                        <h:outputText value="#{serviceController.selected.id}" title="#{bundle.ViewServiceTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ServiceViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

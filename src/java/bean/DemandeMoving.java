@@ -28,10 +28,10 @@ public class DemandeMoving implements Serializable {
     @ManyToOne
     private DemandeService demandeService;
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Ville villeDepart;
     private String adresseDepart;
-    @OneToOne
+    @ManyToOne
     private Ville villeArrive;
     private String adresseArrive;
     private Boolean storage;

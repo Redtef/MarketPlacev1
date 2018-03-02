@@ -3,40 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditSupplementDemandeEventTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_supplementEvent}" for="supplementEvent" />
-                    <h:selectOneMenu id="supplementEvent" value="#{supplementDemandeEventController.selected.supplementEvent}" title="#{bundle.EditSupplementDemandeEventTitle_supplementEvent}" >
-                        <f:selectItems value="#{supplementEventController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_demandeEvent}" for="demandeEvent" />
-                    <h:selectOneMenu id="demandeEvent" value="#{supplementDemandeEventController.selected.demandeEvent}" title="#{bundle.EditSupplementDemandeEventTitle_demandeEvent}" >
-                        <f:selectItems value="#{demandeEventController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{supplementDemandeEventController.selected.id}" title="#{bundle.EditSupplementDemandeEventTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{supplementDemandeEventController.update}" value="#{bundle.EditSupplementDemandeEventSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditSupplementDemandeEventViewLink}"/>
-                <br />
-                <h:commandLink action="#{supplementDemandeEventController.prepareList}" value="#{bundle.EditSupplementDemandeEventShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditSupplementDemandeEventIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="SupplementDemandeEventEditDlg" widgetVar="SupplementDemandeEventEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSupplementDemandeEventTitle}">
+            <h:form id="SupplementDemandeEventEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supplementDemandeEventController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_supplementEvent}" for="supplementEvent" />
+                        <p:selectOneMenu id="supplementEvent" value="#{supplementDemandeEventController.selected.supplementEvent}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{supplementEventController.itemsAvailableSelectOne}"
+                                           var="supplementEventItem"
+                                           itemValue="#{supplementEventItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_demandeEvent}" for="demandeEvent" />
+                        <p:selectOneMenu id="demandeEvent" value="#{supplementDemandeEventController.selected.demandeEvent}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{demandeEventController.itemsAvailableSelectOne}"
+                                           var="demandeEventItem"
+                                           itemValue="#{demandeEventItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSupplementDemandeEventLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{supplementDemandeEventController.selected.id}" title="#{bundle.EditSupplementDemandeEventTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{supplementDemandeEventController.update}" value="#{bundle.Save}" update="display,:SupplementDemandeEventListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SupplementDemandeEventEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SupplementDemandeEventEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

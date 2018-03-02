@@ -3,40 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewVoitureImageTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewVoitureImageLabel_id}"/>
-                    <h:outputText value="#{voitureImageController.selected.id}" title="#{bundle.ViewVoitureImageTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewVoitureImageLabel_image}"/>
-                    <h:outputText value="#{voitureImageController.selected.image}" title="#{bundle.ViewVoitureImageTitle_image}"/>
-                    <h:outputText value="#{bundle.ViewVoitureImageLabel_voiture}"/>
-                    <h:outputText value="#{voitureImageController.selected.voiture}" title="#{bundle.ViewVoitureImageTitle_voiture}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{voitureImageController.destroyAndView}" value="#{bundle.ViewVoitureImageDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewVoitureImageEditLink}"/>
-                <br />
-                <h:commandLink action="#{voitureImageController.prepareCreate}" value="#{bundle.ViewVoitureImageCreateLink}" />
-                <br />
-                <h:commandLink action="#{voitureImageController.prepareList}" value="#{bundle.ViewVoitureImageShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewVoitureImageIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="VoitureImageViewDlg" widgetVar="VoitureImageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVoitureImageTitle}">
+            <h:form id="VoitureImageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureImageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVoitureImageLabel_id}"/>
+                        <h:outputText value="#{voitureImageController.selected.id}" title="#{bundle.ViewVoitureImageTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewVoitureImageLabel_image}"/>
+                        <h:outputText value="#{voitureImageController.selected.image}" title="#{bundle.ViewVoitureImageTitle_image}"/>
+                        <h:outputText value="#{bundle.ViewVoitureImageLabel_voiture}"/>
+                        <h:outputText value="#{voitureImageController.selected.voiture}" title="#{bundle.ViewVoitureImageTitle_voiture}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VoitureImageViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

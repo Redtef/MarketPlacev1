@@ -4,11 +4,307 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
         Hello from Facelets
         <br />
         <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <br />
+        <h:link outcome="/categorie/List" value="Show All Categorie Items"/>
+        <br />
+        <h:link outcome="/childDemandeBabySitting/List" value="Show All ChildDemandeBabySitting Items"/>
+        <br />
+        <h:link outcome="/client/List" value="Show All Client Items"/>
+        <br />
+        <h:link outcome="/cuisineDemandeEvent/List" value="Show All CuisineDemandeEvent Items"/>
+        <br />
+        <h:link outcome="/cuisineType/List" value="Show All CuisineType Items"/>
+        <br />
+        <h:link outcome="/day/List" value="Show All Day Items"/>
+        <br />
+        <h:link outcome="/demandeBabySitting/List" value="Show All DemandeBabySitting Items"/>
+        <br />
+        <h:link outcome="/demandeCleaning/List" value="Show All DemandeCleaning Items"/>
+        <br />
+        <h:link outcome="/demandeEvent/List" value="Show All DemandeEvent Items"/>
+        <br />
+        <h:link outcome="/demandeGardening/List" value="Show All DemandeGardening Items"/>
+        <br />
+        <h:link outcome="/demandeHandyMan/List" value="Show All DemandeHandyMan Items"/>
+        <br />
+        <h:link outcome="/demandeMoving/List" value="Show All DemandeMoving Items"/>
+        <br />
+        <h:link outcome="/demandePainting/List" value="Show All DemandePainting Items"/>
+        <br />
+        <h:link outcome="/demandePestControl/List" value="Show All DemandePestControl Items"/>
+        <br />
+        <h:link outcome="/demandePhotographie/List" value="Show All DemandePhotographie Items"/>
+        <br />
+        <h:link outcome="/demandeService/List" value="Show All DemandeService Items"/>
+        <br />
+        <h:link outcome="/demandeServiceConfirmationDetail/List" value="Show All DemandeServiceConfirmationDetail Items"/>
+        <br />
+        <h:link outcome="/demandeVoiture/List" value="Show All DemandeVoiture Items"/>
+        <br />
+        <h:link outcome="/eventType/List" value="Show All EventType Items"/>
+        <br />
+        <h:link outcome="/faq/List" value="Show All Faq Items"/>
+        <br />
+        <h:link outcome="/gardeningType/List" value="Show All GardeningType Items"/>
+        <br />
+        <h:link outcome="/home/List" value="Show All Home Items"/>
+        <br />
+        <h:link outcome="/homeType/List" value="Show All HomeType Items"/>
+        <br />
+        <h:link outcome="/manager/List" value="Show All Manager Items"/>
+        <br />
+        <h:link outcome="/owner/List" value="Show All Owner Items"/>
+        <br />
+        <h:link outcome="/packaging/List" value="Show All Packaging Items"/>
+        <br />
+        <h:link outcome="/paintingType/List" value="Show All PaintingType Items"/>
+        <br />
+        <h:link outcome="/pays/List" value="Show All Pays Items"/>
+        <br />
+        <h:link outcome="/pestControlType/List" value="Show All PestControlType Items"/>
+        <br />
+        <h:link outcome="/photographieType/List" value="Show All PhotographieType Items"/>
+        <br />
+        <h:link outcome="/planning/List" value="Show All Planning Items"/>
+        <br />
+        <h:link outcome="/planningItem/List" value="Show All PlanningItem Items"/>
+        <br />
+        <h:link outcome="/review/List" value="Show All Review Items"/>
+        <br />
+        <h:link outcome="/secteur/List" value="Show All Secteur Items"/>
+        <br />
+        <h:link outcome="/service/List" value="Show All Service Items"/>
+        <br />
+        <h:link outcome="/servicePricing/List" value="Show All ServicePricing Items"/>
+        <br />
+        <h:link outcome="/societe/List" value="Show All Societe Items"/>
+        <br />
+        <h:link outcome="/societeJob/List" value="Show All SocieteJob Items"/>
+        <br />
+        <h:link outcome="/supplementDemandeEvent/List" value="Show All SupplementDemandeEvent Items"/>
+        <br />
+        <h:link outcome="/supplementEvent/List" value="Show All SupplementEvent Items"/>
+        <br />
+        <h:link outcome="/timing/List" value="Show All Timing Items"/>
+        <br />
+        <h:link outcome="/typeAction/List" value="Show All TypeAction Items"/>
+        <br />
+        <h:link outcome="/typeDemande/List" value="Show All TypeDemande Items"/>
+        <br />
+        <h:link outcome="/ville/List" value="Show All Ville Items"/>
+        <br />
+        <h:link outcome="/voiture/List" value="Show All Voiture Items"/>
+        <br />
+        <h:link outcome="/voitureImage/List" value="Show All VoitureImage Items"/>
+        <br />
+        <h:link outcome="/voitureMarque/List" value="Show All VoitureMarque Items"/>
+        <br />
+        <h:link outcome="/voitureModele/List" value="Show All VoitureModele Items"/>
+        <br />
+        <h:link outcome="/categorie/List" value="Show All Categorie Items"/>
+        <br />
+        <h:link outcome="/childDemandeBabySitting/List" value="Show All ChildDemandeBabySitting Items"/>
+        <br />
+        <h:link outcome="/client/List" value="Show All Client Items"/>
+        <br />
+        <h:link outcome="/cuisineDemandeEvent/List" value="Show All CuisineDemandeEvent Items"/>
+        <br />
+        <h:link outcome="/cuisineType/List" value="Show All CuisineType Items"/>
+        <br />
+        <h:link outcome="/day/List" value="Show All Day Items"/>
+        <br />
+        <h:link outcome="/demandeBabySitting/List" value="Show All DemandeBabySitting Items"/>
+        <br />
+        <h:link outcome="/demandeCleaning/List" value="Show All DemandeCleaning Items"/>
+        <br />
+        <h:link outcome="/demandeEvent/List" value="Show All DemandeEvent Items"/>
+        <br />
+        <h:link outcome="/demandeGardening/List" value="Show All DemandeGardening Items"/>
+        <br />
+        <h:link outcome="/demandeHandyMan/List" value="Show All DemandeHandyMan Items"/>
+        <br />
+        <h:link outcome="/demandeMoving/List" value="Show All DemandeMoving Items"/>
+        <br />
+        <h:link outcome="/demandePainting/List" value="Show All DemandePainting Items"/>
+        <br />
+        <h:link outcome="/demandePestControl/List" value="Show All DemandePestControl Items"/>
+        <br />
+        <h:link outcome="/demandePhotographie/List" value="Show All DemandePhotographie Items"/>
+        <br />
+        <h:link outcome="/demandeService/List" value="Show All DemandeService Items"/>
+        <br />
+        <h:link outcome="/demandeServiceConfirmationDetail/List" value="Show All DemandeServiceConfirmationDetail Items"/>
+        <br />
+        <h:link outcome="/demandeVoiture/List" value="Show All DemandeVoiture Items"/>
+        <br />
+        <h:link outcome="/eventType/List" value="Show All EventType Items"/>
+        <br />
+        <h:link outcome="/faq/List" value="Show All Faq Items"/>
+        <br />
+        <h:link outcome="/gardeningType/List" value="Show All GardeningType Items"/>
+        <br />
+        <h:link outcome="/home/List" value="Show All Home Items"/>
+        <br />
+        <h:link outcome="/homeType/List" value="Show All HomeType Items"/>
+        <br />
+        <h:link outcome="/manager/List" value="Show All Manager Items"/>
+        <br />
+        <h:link outcome="/owner/List" value="Show All Owner Items"/>
+        <br />
+        <h:link outcome="/packaging/List" value="Show All Packaging Items"/>
+        <br />
+        <h:link outcome="/paintingType/List" value="Show All PaintingType Items"/>
+        <br />
+        <h:link outcome="/pays/List" value="Show All Pays Items"/>
+        <br />
+        <h:link outcome="/pestControlType/List" value="Show All PestControlType Items"/>
+        <br />
+        <h:link outcome="/photographieType/List" value="Show All PhotographieType Items"/>
+        <br />
+        <h:link outcome="/planning/List" value="Show All Planning Items"/>
+        <br />
+        <h:link outcome="/planningItem/List" value="Show All PlanningItem Items"/>
+        <br />
+        <h:link outcome="/review/List" value="Show All Review Items"/>
+        <br />
+        <h:link outcome="/secteur/List" value="Show All Secteur Items"/>
+        <br />
+        <h:link outcome="/service/List" value="Show All Service Items"/>
+        <br />
+        <h:link outcome="/servicePricing/List" value="Show All ServicePricing Items"/>
+        <br />
+        <h:link outcome="/societe/List" value="Show All Societe Items"/>
+        <br />
+        <h:link outcome="/societeJob/List" value="Show All SocieteJob Items"/>
+        <br />
+        <h:link outcome="/supplementDemandeEvent/List" value="Show All SupplementDemandeEvent Items"/>
+        <br />
+        <h:link outcome="/supplementEvent/List" value="Show All SupplementEvent Items"/>
+        <br />
+        <h:link outcome="/timing/List" value="Show All Timing Items"/>
+        <br />
+        <h:link outcome="/typeAction/List" value="Show All TypeAction Items"/>
+        <br />
+        <h:link outcome="/typeDemande/List" value="Show All TypeDemande Items"/>
+        <br />
+        <h:link outcome="/unite/List" value="Show All Unite Items"/>
+        <br />
+        <h:link outcome="/ville/List" value="Show All Ville Items"/>
+        <br />
+        <h:link outcome="/voiture/List" value="Show All Voiture Items"/>
+        <br />
+        <h:link outcome="/voitureImage/List" value="Show All VoitureImage Items"/>
+        <br />
+        <h:link outcome="/voitureMarque/List" value="Show All VoitureMarque Items"/>
+        <br />
+        <h:link outcome="/voitureModele/List" value="Show All VoitureModele Items"/>
+        <br />
+        <h:link outcome="/owner/List" value="Show All Owner Items"/>
     </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
 

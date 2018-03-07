@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Creation demande Photographie</title>
+    </h:head>
+    <h:body>
+        <h1>Creation Demande Photographie</h1>
+
+        <f:view>
+
+
+
+
+            <h:form>
+                <h1><h:outputText value="Demande Photographie"/></h1>
+                <p:growl id="msgs" showDetail="true" />
+                <p:panelGrid columns="4">
+
+
+                    <p:outputLabel value="TypePhotographie:" for="typePhotographie" />
+                    <p:selectOneMenu id="typePhotographie" value="#{demandePhotographieController.selected.typePhotographie}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{photographieTypeController.itemsAvailableSelectOne}" var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Videographie:" for="videographie" />
+                    <p:selectBooleanButton id="videographie" value="#{demandePhotographieController.selected.videographie}" onLabel="oui" offLabel="non" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px">
+                        <p:ajax update="msgs" listener="#{demandePhotographieController.addMessage}" />
+                    </p:selectBooleanButton>
+
+                </p:panelGrid>
+
+
+                <!--demande service-->
+
+                <h1><h:outputText value="Demande Service"/></h1>
+                <p:panelGrid columns="6">
+
+                    <p:outputLabel value="Secteur:" for="secteur" />
+                    <p:selectOneMenu id="secteur" value="#{demandePhotographieController.selected.demandeService.secteur}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{secteurController.itemsAvailableSelectOne}" var="item" itemValue="#{item}" itemLabel="#{item.nom}-#{item.ville.nom}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Planning:"  />
+                    <p:calendar id="event" value="#{demandePhotographieController.selected.demandeService.planning.dateOnce}">
+                        <p:ajax event="dateSelect" listener="#{demandePhotographieController.onDateSelect}" update="msgs" />
+                    </p:calendar>
+
+                    <p:outputLabel value="Detail:" for="detail" />
+                    <p:inputTextarea id="detail" rows="8" cols="30" value="#{demandePhotographieController.selected.demandeService.detail}" title="Detail" />
+                </p:panelGrid>
+
+
+                <!--client-->
+                <h1><h:outputText value="Client"/></h1>
+                <p:panelGrid columns="6">
+                    <p:outputLabel value="Prenom:" for="prenom" />
+                    <p:inputText id="prenom" value="#{demandePhotographieController.selected.demandeService.client.prenom}" title="Prenom" />
+                    <p:outputLabel value="Secteur:" for="secteur" />
+                    <p:selectOneMenu id="secteurClient" value="#{demandePhotographieController.selected.demandeService.client.secteur}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{secteurController.itemsAvailableSelectOne}" var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="AdresseComplement:" for="adresseComplement" />
+                    <p:inputText id="adresseComplement" value="#{demandePhotographieController.selected.demandeService.client.adresseComplement}" title="AdresseComplement" />
+                    <p:outputLabel value="Nom:" for="nom" />
+                    <p:inputText id="nom" value="#{demandePhotographieController.selected.demandeService.client.nom}" title="Nom" />
+                    <p:outputLabel value="Email:" for="email" />
+                    <p:inputText id="email" value="#{demandePhotographieController.selected.demandeService.client.email}" title="Email" />
+                    <p:outputLabel value="Phone:" for="phone" />
+                    <p:inputText id="phone" value="#{demandePhotographieController.selected.demandeService.client.phone}" title="Phone" />
+                    <p:outputLabel value="Id:" for="id" />
+                    <p:inputText id="id" value="#{demandePhotographieController.selected.demandeService.client.id}" title="Id" />
+                </p:panelGrid>
+
+
+
+
+                <p:commandButton value="next" action="#{demandePhotographieController.save()}" />
+
+            </h:form>
+
+
+
+
+        </f:view>
+
+    </h:body>
+
+</html>
+

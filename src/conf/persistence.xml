@@ -20,6 +20,7 @@
     <class>bean.DemandeService</class>
     <class>bean.DemandeServiceConfirmationDetail</class>
     <class>bean.DemandeVoiture</class>
+    <class>bean.Device</class>
     <class>bean.EventType</class>
     <class>bean.Faq</class>
     <class>bean.GardeningType</class>

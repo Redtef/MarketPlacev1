@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Prenom:" for="prenom" />
+                    <p:inputText id="prenom" value="#{clientController.selected.prenom}" title="Prenom" />
+                    <p:outputLabel value="Secteur:" for="secteur" />
+                    <p:selectOneMenu id="secteur" value="#{clientController.selected.secteur}" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{fixme}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="AdresseComplement:" for="adresseComplement" />
+                    <p:inputText id="adresseComplement" value="#{clientController.selected.adresseComplement}" title="AdresseComplement" />
+                    <p:outputLabel value="Nom:" for="nom" />
+                    <p:inputText id="nom" value="#{clientController.selected.nom}" title="Nom" />
+                    <p:outputLabel value="Email:" for="email" />
+                    <p:inputText id="email" value="#{clientController.selected.email}" title="Email" />
+                    <p:outputLabel value="Phone:" for="phone" />
+                    <p:inputText id="phone" value="#{clientController.selected.phone}" title="Phone" />
+                    <p:outputLabel value="Password:" for="password" />
+                    <p:inputText id="password" value="#{clientController.selected.password}" title="Password" />
+                    <p:outputLabel value="Id:" for="id" />
+                    <p:inputText id="id" value="#{clientController.selected.id}" title="Id" />
+                </p:panelGrid>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

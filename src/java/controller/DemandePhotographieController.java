@@ -1,11 +1,14 @@
 package controller;
 
+import bean.Client;
 import bean.DemandePhotographie;
+import bean.DemandeService;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.DemandePhotographieFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -14,25 +17,37 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.SelectEvent;
 
-
-@Named("demandePhotographieController")
+@Named(value = "demandePhotographieController")
 @SessionScoped
 public class DemandePhotographieController implements Serializable {
 
-
-    @EJB private service.DemandePhotographieFacade ejbFacade;
-    private List<DemandePhotographie> items = null;
+    @EJB
+    private service.DemandePhotographieFacade ejbFacade;
+    private List<DemandePhotographie> items;
     private DemandePhotographie selected;
+    private DemandeService demandeService;
+    private Client client;
 
     public DemandePhotographieController() {
     }
 
+    public String save() {
+        ejbFacade.save(selected);
+        selected = null;
+        return "testCreate";
+    }
+
     public DemandePhotographie getSelected() {
+        if (selected == null) {
+            selected = new DemandePhotographie();
+        }
         return selected;
     }
 
@@ -54,6 +69,17 @@ public class DemandePhotographieController implements Serializable {
         selected = new DemandePhotographie();
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
+
+    public void addMessage() {
+        String summary = selected.getVideographie() ? "Videographie inclus" : "Videographie non inclus";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
     public void create() {
@@ -80,6 +106,36 @@ public class DemandePhotographieController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public DemandePhotographieFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(DemandePhotographieFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public DemandeService getDemandeService() {
+        if (demandeService == null) {
+            demandeService = new DemandeService();
+        }
+        return demandeService;
+    }
+
+    public void setDemandeService(DemandeService demandeService) {
+        this.demandeService = demandeService;
+    }
+
+    public Client getClient() {
+        if (client == null) {
+            client = new Client();
+        }
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -122,7 +178,7 @@ public class DemandePhotographieController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=DemandePhotographie.class)
+    @FacesConverter(forClass = DemandePhotographie.class)
     public static class DemandePhotographieControllerConverter implements Converter {
 
         @Override
@@ -130,7 +186,7 @@ public class DemandePhotographieController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DemandePhotographieController controller = (DemandePhotographieController)facesContext.getApplication().getELResolver().
+            DemandePhotographieController controller = (DemandePhotographieController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "demandePhotographieController");
             return controller.getDemandePhotographie(getKey(value));
         }

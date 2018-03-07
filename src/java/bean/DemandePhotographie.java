@@ -31,6 +31,9 @@ public class DemandePhotographie implements Serializable {
     private DemandeService demandeService;
 
     public DemandeService getDemandeService() {
+        if (demandeService == null){
+            demandeService = new DemandeService();
+        }
         return demandeService;
     }
 
@@ -43,6 +46,9 @@ public class DemandePhotographie implements Serializable {
     }
 
     public PhotographieType getTypePhotographie() {
+        if (typePhotographie== null){
+            typePhotographie= new PhotographieType();
+        }
         return typePhotographie;
     }
 

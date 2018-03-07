@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -52,8 +51,6 @@ public class DemandeService implements Serializable {
     private Date dateDernierModif;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateSuppression;
-    @OneToOne
-    private TypeDemande typeDemande;
 
     public DemandeService() {
     }
@@ -66,7 +63,7 @@ public class DemandeService implements Serializable {
         this.datedemande = datedemande;
     }
 
-    public DemandeService(Client client, String detail, Secteur secteur, Societe societe, BigDecimal prixHt, BigDecimal prixTtc, ServicePricing servicePricing, Service service, Planning planning, TypeDemande typeDemande) {
+    public DemandeService(Client client, String detail, Secteur secteur, Societe societe, BigDecimal prixHt, BigDecimal prixTtc, ServicePricing servicePricing, Service service, Planning planning) {
         this.client = client;
         this.detail = detail;
         this.secteur = secteur;
@@ -76,25 +73,18 @@ public class DemandeService implements Serializable {
         this.servicePricing = servicePricing;
         this.service = service;
         this.planning = planning;
-        this.typeDemande = typeDemande;
-    }
-
-    public TypeDemande getTypeDemande() {
-        return typeDemande;
-    }
-
-    public void setTypeDemande(TypeDemande typeDemande) {
-        this.typeDemande = typeDemande;
     }
 
     public Client getClient() {
+        if (client == null) {
+            client = new Client();
+        }
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
     }
-
 
     public String getDetail() {
         return detail;
@@ -105,6 +95,9 @@ public class DemandeService implements Serializable {
     }
 
     public Secteur getSecteur() {
+        if (secteur == null) {
+            secteur = new Secteur();
+        }
         return secteur;
     }
 
@@ -113,6 +106,9 @@ public class DemandeService implements Serializable {
     }
 
     public Societe getSociete() {
+        if (societe == null) {
+            societe = new Societe();
+        }
         return societe;
     }
 
@@ -145,6 +141,9 @@ public class DemandeService implements Serializable {
     }
 
     public Service getService() {
+        if (service == null) {
+            service = new Service();
+        }
         return service;
     }
 
@@ -153,6 +152,9 @@ public class DemandeService implements Serializable {
     }
 
     public Planning getPlanning() {
+        if (planning == null) {
+            planning = new Planning();
+        }
         return planning;
     }
 
@@ -161,6 +163,9 @@ public class DemandeService implements Serializable {
     }
 
     public Manager getManagerConfirmation() {
+        if (managerConfirmation == null) {
+            managerConfirmation = new Manager();
+        }
         return managerConfirmation;
     }
 

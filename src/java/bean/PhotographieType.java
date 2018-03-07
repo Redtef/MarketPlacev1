@@ -20,9 +20,14 @@ public class PhotographieType implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String nom;
+
+    public PhotographieType() {
+    }
+    
+    
 
     public String getNom() {
         return nom;
@@ -62,7 +67,7 @@ public class PhotographieType implements Serializable {
 
     @Override
     public String toString() {
-        return "Photographie{" + "id=" + id + ", nom=" + nom + '}';
+        return " nom=" + nom ;
     }
 
 }

@@ -24,6 +24,7 @@ public class PhotographieTypeFacade extends AbstractFacade<PhotographieType> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
 
     public PhotographieTypeFacade() {
         super(PhotographieType.class);

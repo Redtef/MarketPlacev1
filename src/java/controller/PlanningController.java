@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("planningController")
 @SessionScoped
 public class PlanningController implements Serializable {
 
-
-    @EJB private service.PlanningFacade ejbFacade;
+    @EJB
+    private service.PlanningFacade ejbFacade;
     private List<Planning> items = null;
     private Planning selected;
 
@@ -33,7 +32,15 @@ public class PlanningController implements Serializable {
     }
 
     public Planning getSelected() {
+        if (selected == null) {
+            selected = new Planning();
+        }
         return selected;
+    }
+    
+    public void save(){
+        ejbFacade.save(selected);
+        
     }
 
     public void setSelected(Planning selected) {
@@ -122,7 +129,7 @@ public class PlanningController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Planning.class)
+    @FacesConverter(forClass = Planning.class)
     public static class PlanningControllerConverter implements Converter {
 
         @Override
@@ -130,7 +137,7 @@ public class PlanningController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PlanningController controller = (PlanningController)facesContext.getApplication().getELResolver().
+            PlanningController controller = (PlanningController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "planningController");
             return controller.getPlanning(getKey(value));
         }

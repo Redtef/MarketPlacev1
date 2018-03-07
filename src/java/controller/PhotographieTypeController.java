@@ -20,19 +20,22 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 
-@Named("photographieTypeController")
+@Named(value = "photographieTypeController")
 @SessionScoped
 public class PhotographieTypeController implements Serializable {
 
 
     @EJB private service.PhotographieTypeFacade ejbFacade;
-    private List<PhotographieType> items = null;
+    private List<PhotographieType> items ;
     private PhotographieType selected;
 
     public PhotographieTypeController() {
     }
 
     public PhotographieType getSelected() {
+        if (selected == null){
+            selected = new PhotographieType();
+        }
         return selected;
     }
 

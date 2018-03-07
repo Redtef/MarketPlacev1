@@ -20,6 +20,9 @@ public class ServiceFacade extends AbstractFacade<Service> {
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
 
+    public Service findByName(String nom){
+        return (Service) em.createQuery("SELECT s FROM Service s where s.nom='" +nom+"'").getSingleResult();
+    }
     @Override
     protected EntityManager getEntityManager() {
         return em;

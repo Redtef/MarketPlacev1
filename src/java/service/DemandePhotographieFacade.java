@@ -6,6 +6,7 @@
 package service;
 
 import bean.DemandePhotographie;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,17 @@ public class DemandePhotographieFacade extends AbstractFacade<DemandePhotographi
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
 
+    @EJB
+    ClientFacade clientFacade;
+    @EJB
+    DemandeServiceFacade demandeServiceFacade;
+    
+    
+    public void save(DemandePhotographie demandePhotographie){
+        clientFacade.save(demandePhotographie.getDemandeService().getClient());
+        demandeServiceFacade.save(demandePhotographie.getDemandeService());
+        create(demandePhotographie);
+    }
     @Override
     protected EntityManager getEntityManager() {
         return em;

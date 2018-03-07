@@ -3,6 +3,7 @@ package controller;
 import bean.Service;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.SessionUtil;
 import service.ServiceFacade;
 
 import java.io.Serializable;
@@ -19,15 +20,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("serviceController")
 @SessionScoped
 public class ServiceController implements Serializable {
 
-
-    @EJB private service.ServiceFacade ejbFacade;
+    @EJB
+    private service.ServiceFacade ejbFacade;
     private List<Service> items = null;
     private Service selected;
+    private String nomService;
+    private Service service;
+
+    public String next() {
+        return "/demandePhotographie/testCreate";
+    }
+
+    public List<Service> getAllService() {
+        return ejbFacade.findAll();
+    }
 
     public ServiceController() {
     }
@@ -38,6 +48,30 @@ public class ServiceController implements Serializable {
 
     public void setSelected(Service selected) {
         this.selected = selected;
+    }
+
+    public ServiceFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(ServiceFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public String getNomService() {
+        return nomService;
+    }
+
+    public void setNomService(String nomService) {
+        this.nomService = nomService;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     protected void setEmbeddableKeys() {
@@ -122,7 +156,7 @@ public class ServiceController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Service.class)
+    @FacesConverter(forClass = Service.class)
     public static class ServiceControllerConverter implements Converter {
 
         @Override
@@ -130,7 +164,7 @@ public class ServiceController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ServiceController controller = (ServiceController)facesContext.getApplication().getELResolver().
+            ServiceController controller = (ServiceController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "serviceController");
             return controller.getService(getKey(value));
         }

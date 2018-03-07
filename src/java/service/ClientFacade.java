@@ -24,6 +24,13 @@ public class ClientFacade extends AbstractFacade<Client> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public int save(Client client){
+        
+        create(client);
+        
+        return 1;
+    }
 
     public ClientFacade() {
         super(Client.class);

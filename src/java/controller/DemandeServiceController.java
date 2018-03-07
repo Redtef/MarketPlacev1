@@ -1,6 +1,8 @@
 package controller;
 
 import bean.DemandeService;
+import bean.Planning;
+import bean.Secteur;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.DemandeServiceFacade;
@@ -18,21 +20,41 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
+import service.PlanningFacade;
+import service.SecteurFacade;
 
 @Named("demandeServiceController")
 @SessionScoped
 public class DemandeServiceController implements Serializable {
 
+    @EJB
+    private SecteurFacade secteurFacade;
 
-    @EJB private service.DemandeServiceFacade ejbFacade;
+    @EJB
+    private service.DemandeServiceFacade ejbFacade;
     private List<DemandeService> items;
     private DemandeService selected;
+    private Planning planning;
+    @EJB
+    private PlanningFacade planningFacade;
 
     public DemandeServiceController() {
     }
 
+    public void save() {
+        selected.setPlanning(planning);
+        ejbFacade.save(selected);
+
+    }
+
+    public List<Secteur> getAllSecteur() {
+        return secteurFacade.findAll();
+    }
+
     public DemandeService getSelected() {
+        if (selected == null) {
+            selected = new DemandeService();
+        }
         return selected;
     }
 
@@ -82,6 +104,41 @@ public class DemandeServiceController implements Serializable {
         return items;
     }
 
+    public SecteurFacade getSecteurFacade() {
+        return secteurFacade;
+    }
+
+    public void setSecteurFacade(SecteurFacade secteurFacade) {
+        this.secteurFacade = secteurFacade;
+    }
+
+    public DemandeServiceFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(DemandeServiceFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Planning getPlanning() {
+        if (planning == null) {
+            planning = new Planning();
+        }
+        return planning;
+    }
+
+    public void setPlanning(Planning planning) {
+        this.planning = planning;
+    }
+
+    public PlanningFacade getPlanningFacade() {
+        return planningFacade;
+    }
+
+    public void setPlanningFacade(PlanningFacade planningFacade) {
+        this.planningFacade = planningFacade;
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -122,7 +179,7 @@ public class DemandeServiceController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=DemandeService.class)
+    @FacesConverter(forClass = DemandeService.class)
     public static class DemandeServiceControllerConverter implements Converter {
 
         @Override
@@ -130,7 +187,7 @@ public class DemandeServiceController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DemandeServiceController controller = (DemandeServiceController)facesContext.getApplication().getELResolver().
+            DemandeServiceController controller = (DemandeServiceController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "demandeServiceController");
             return controller.getDemandeService(getKey(value));
         }

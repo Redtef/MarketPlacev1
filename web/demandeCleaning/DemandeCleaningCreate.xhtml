@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Demande Cleaning</title>
+    </h:head>
+    <h:body>
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <p:growl id="msgs" showDetail="true" />
+                <p:panelGrid columns="2" styleClass="ui-grid">
+                    <p:outputLabel value="NbrCleaner:" for="nbrCleaner" />
+                    <p:spinner id="nbrCleaner" value="#{demandeCleaningController.selected.nbrCleaner}" />
+
+
+                    <p:outputLabel value="NbrHeures:" for="nbrHeures" />
+                    <p:spinner id="nbrCleaner" value="#{demandeCleaningController.selected.nbrHeures}" />
+
+                    <p:outputLabel value="BringEquipement:" for="bringEquipement" />
+                    <p:selectBooleanButton id="bringEquipement" value="#{demandeCleaningController.selected.bringEquipement}" onLabel="oui" offLabel="non" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px">
+                        <p:ajax update="msgs" listener="#{demandePhotographieController.addMessage}" />
+                    </p:selectBooleanButton>
+
+
+
+                </p:panelGrid>
+
+
+                <!--demande service-->
+
+                <h1><h:outputText value="Demande Service"/></h1>
+                <p:panelGrid columns="6">
+
+                    <p:outputLabel value="Secteur:" for="secteur" />
+                    <p:selectOneMenu id="secteur" value="#{demandePhotographieController.selected.demandeService.secteur}" >
+                        <f:selectItems value="#{secteurController.itemsAvailableSelectOne}" var="item" itemValue="#{item}" itemLabel="#{item.nom}-#{item.ville.nom}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Planning:"  />
+                    <p:calendar id="event" value="#{demandePhotographieController.selected.demandeService.planning.dateOnce}">
+                        <p:ajax event="dateSelect" listener="#{demandePhotographieController.onDateSelect}" update="msgs" />
+                    </p:calendar>
+
+                    <p:outputLabel value="Detail:" for="detail" />
+                    <p:inputTextarea id="detail" rows="8" cols="30" value="#{demandePhotographieController.selected.demandeService.detail}" title="Detail" />
+                </p:panelGrid>
+
+
+
+
+
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

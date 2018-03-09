@@ -41,7 +41,7 @@ public class DemandePhotographieController implements Serializable {
     public String save() {
         ejbFacade.save(selected);
         selected = null;
-        return "testCreate";
+        return "DemandePhotographieCreate";
     }
 
     public DemandePhotographie getSelected() {

@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -32,6 +33,9 @@ public class DemandeCleaningController implements Serializable {
     }
 
     public DemandeCleaning getSelected() {
+        if (selected == null) {
+            selected = new DemandeCleaning();
+        }
         return selected;
     }
 
@@ -40,6 +44,11 @@ public class DemandeCleaningController implements Serializable {
     }
 
     protected void setEmbeddableKeys() {
+    }
+
+    public void addMessage() {
+        String summary = selected.getBringEquipement()? "Equipement inclus" : "Equipement non inclus";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
     }
 
     protected void initializeEmbeddableKey() {

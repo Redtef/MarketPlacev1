@@ -6,12 +6,13 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,12 +25,14 @@ public class DemandeEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private EventType event;
+    @ManyToOne
+    private EventType eventType;
     private int nbrInvites;
     private String detail;
     @ManyToOne
     private DemandeService demandeService;
+    @OneToMany(mappedBy = "demandeEvent")
+    private List<SupplementDemandeEvent> supplementDemandeEvents;
 
     public DemandeService getDemandeService() {
         return demandeService;
@@ -43,12 +46,12 @@ public class DemandeEvent implements Serializable {
     public DemandeEvent() {
     }
 
-    public EventType getEvent() {
-        return event;
+    public EventType getEventType() {
+        return eventType;
     }
 
-    public void setEvent(EventType event) {
-        this.event = event;
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
 
     public String getDetail() {
@@ -80,6 +83,14 @@ public class DemandeEvent implements Serializable {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public List<SupplementDemandeEvent> getSupplementDemandeEvents() {
+        return supplementDemandeEvents;
+    }
+
+    public void setSupplementDemandeEvents(List<SupplementDemandeEvent> supplementDemandeEvents) {
+        this.supplementDemandeEvents = supplementDemandeEvents;
     }
 
     @Override

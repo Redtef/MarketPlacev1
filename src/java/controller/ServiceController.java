@@ -32,7 +32,7 @@ public class ServiceController implements Serializable {
     private Service service;
 
     public String next() {
-        return "/demandePhotographie/testCreate";
+        return "/demandePhotographie/DemandePhotographieCreate";
     }
 
     public List<Service> getAllService() {

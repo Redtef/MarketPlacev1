@@ -29,6 +29,7 @@ public class Owner implements Serializable {
     private boolean blocked;
     @OneToMany(mappedBy = "owner")
     private List<Device> devices;
+    private String password;
 
     public List<Device> getDevices() {
         return devices;
@@ -38,8 +39,14 @@ public class Owner implements Serializable {
         this.devices = devices;
     }
 
-    
-    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isBlocked() {
         return blocked;
     }
@@ -47,9 +54,6 @@ public class Owner implements Serializable {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
-    
-    
-    
 
     public Owner() {
     }
@@ -68,7 +72,6 @@ public class Owner implements Serializable {
         this.societes = societes;
     }
 
-    
     public String getNom() {
         return nom;
     }

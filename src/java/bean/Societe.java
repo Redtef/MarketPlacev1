@@ -55,6 +55,9 @@ public class Societe implements Serializable {
     }
 
     public Owner getOwner() {
+        if (owner == null) {
+            owner = new Owner();
+        }
         return owner;
     }
 

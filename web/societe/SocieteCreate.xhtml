@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Societe"/></h1>
+
+                <p:panelGrid columns="2" styleClass="ui-grid">
+                    <p:outputLabel value="Nom:" for="nomSociete" />
+                    <p:inputText id="nomSociete" value="#{societeController.selected.nom}" title="Nom" />
+                    <p:outputLabel value="NombreEmploye:" for="nombreEmploye" />
+                    <p:spinner id="nombreEmploye" value="#{societeController.selected.nombreEmploye}" />
+
+                    <p:outputLabel value="SiteWeb:" for="siteWeb" />
+                    <p:inputText id="siteWeb" value="#{societeController.selected.siteWeb}" title="SiteWeb" />
+                    <p:outputLabel value="Phone:" for="phoneSociete" />
+                    <p:inputText id="phoneSociete" value="#{societeController.selected.phone}" title="Phone" />
+                </p:panelGrid>
+
+
+
+                <h1><h:outputText value="Owner"/></h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Login:" for="id" />
+                    <p:inputText id="id" value="#{societeController.selected.owner.id}" title="Id" />
+                    <p:outputLabel value="Password:" for="password" />
+                    <p:inputText id="password" value="#{societeController.selected.owner.password}" title="Password" />
+                    <p:outputLabel value="Nom:" for="nom" />
+                    <p:inputText id="nom" value="#{societeController.selected.owner.nom}" title="Nom" />
+                    <p:outputLabel value="Phone:" for="phone" />
+                    <p:inputText id="phone" value="#{societeController.selected.owner.phone}" title="Phone" />
+                    <p:outputLabel value="Email:" for="email" />
+                    <p:inputText id="email" value="#{societeController.selected.owner.email}" title="Email" />
+                </p:panelGrid>
+                
+               
+                
+                <p:commandButton value="next" action="#{societeController.save()}"/>
+
+
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

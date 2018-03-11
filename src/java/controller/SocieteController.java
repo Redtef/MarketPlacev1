@@ -3,6 +3,7 @@ package controller;
 import bean.Societe;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.SessionUtil;
 import service.SocieteFacade;
 
 import java.io.Serializable;
@@ -19,25 +20,46 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("societeController")
 @SessionScoped
 public class SocieteController implements Serializable {
 
-
-    @EJB private service.SocieteFacade ejbFacade;
+    @EJB
+    private service.SocieteFacade ejbFacade;
     private List<Societe> items = null;
     private Societe selected;
 
     public SocieteController() {
     }
 
+    public String save() {
+        ejbFacade.save(selected);
+        SessionUtil.setAttribute("societe", selected);
+        selected = null;
+        return "/societeJob/SocieteJobCreate";
+    }
+
+    public String next() {
+        return "/societeJob/SocieteJobCreate";
+    }
+
     public Societe getSelected() {
+        if (selected == null) {
+            selected = new Societe();
+        }
         return selected;
     }
 
     public void setSelected(Societe selected) {
         this.selected = selected;
+    }
+
+    public SocieteFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(SocieteFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
     }
 
     protected void setEmbeddableKeys() {
@@ -122,7 +144,7 @@ public class SocieteController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Societe.class)
+    @FacesConverter(forClass = Societe.class)
     public static class SocieteControllerConverter implements Converter {
 
         @Override
@@ -130,7 +152,7 @@ public class SocieteController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SocieteController controller = (SocieteController)facesContext.getApplication().getELResolver().
+            SocieteController controller = (SocieteController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "societeController");
             return controller.getSociete(getKey(value));
         }

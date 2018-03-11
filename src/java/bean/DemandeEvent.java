@@ -33,6 +33,8 @@ public class DemandeEvent implements Serializable {
     private DemandeService demandeService;
     @OneToMany(mappedBy = "demandeEvent")
     private List<SupplementDemandeEvent> supplementDemandeEvents;
+    @OneToMany(mappedBy = "demandeEvent")
+    private List<CuisineDemandeEvent> cuisineDemandeEvents;
 
     public DemandeService getDemandeService() {
         return demandeService;
@@ -76,6 +78,14 @@ public class DemandeEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<CuisineDemandeEvent> getCuisineDemandeEvents() {
+        return cuisineDemandeEvents;
+    }
+
+    public void setCuisineDemandeEvents(List<CuisineDemandeEvent> cuisineDemandeEvents) {
+        this.cuisineDemandeEvents = cuisineDemandeEvents;
     }
 
     @Override

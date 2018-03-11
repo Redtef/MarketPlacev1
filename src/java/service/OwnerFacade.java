@@ -24,6 +24,10 @@ public class OwnerFacade extends AbstractFacade<Owner> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public void save(Owner owner){
+        create(owner);
+    }
 
     public OwnerFacade() {
         super(Owner.class);

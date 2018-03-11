@@ -1,11 +1,14 @@
 package controller;
 
+import bean.Societe;
 import bean.SocieteJob;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
+import controller.util.SessionUtil;
 import service.SocieteJobFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,21 +22,39 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("societeJobController")
 @SessionScoped
 public class SocieteJobController implements Serializable {
 
-
-    @EJB private service.SocieteJobFacade ejbFacade;
-    private List<SocieteJob> items = null;
+    @EJB
+    private service.SocieteJobFacade ejbFacade;
+    private List<SocieteJob> items = new ArrayList<>();
     private SocieteJob selected;
+    private Societe societe;
 
     public SocieteJobController() {
     }
 
     public SocieteJob getSelected() {
+        if (selected == null) {
+            selected = new SocieteJob();
+        }
         return selected;
+    }
+
+    public void add() {
+        //items.add(ejbFacade.clone(selected));
+        items.add(new SocieteJob());
+    }
+
+    public void remove(SocieteJob societeJob) {
+        items.remove(societeJob);
+    }
+
+    public void save() {
+        societe = (Societe) SessionUtil.getAttribute("societe");
+        ejbFacade.save(items, societe);
+        items = null;
     }
 
     public void setSelected(SocieteJob selected) {
@@ -50,6 +71,23 @@ public class SocieteJobController implements Serializable {
         return ejbFacade;
     }
 
+    public SocieteJobFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(SocieteJobFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Societe getSociete() {
+        return societe;
+    }
+
+    public void setSociete(Societe societe) {
+        this.societe = societe;
+    }
+
+    
     public SocieteJob prepareCreate() {
         selected = new SocieteJob();
         initializeEmbeddableKey();
@@ -77,7 +115,7 @@ public class SocieteJobController implements Serializable {
 
     public List<SocieteJob> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = ejbFacade.findBySociete(societe);
         }
         return items;
     }
@@ -122,7 +160,7 @@ public class SocieteJobController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=SocieteJob.class)
+    @FacesConverter(forClass = SocieteJob.class)
     public static class SocieteJobControllerConverter implements Converter {
 
         @Override
@@ -130,7 +168,7 @@ public class SocieteJobController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SocieteJobController controller = (SocieteJobController)facesContext.getApplication().getELResolver().
+            SocieteJobController controller = (SocieteJobController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "societeJobController");
             return controller.getSocieteJob(getKey(value));
         }

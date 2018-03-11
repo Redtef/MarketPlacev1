@@ -30,6 +30,7 @@ public class DemandePhotographieFacade extends AbstractFacade<DemandePhotographi
     public void save(DemandePhotographie demandePhotographie){
         clientFacade.save(demandePhotographie.getDemandeService().getClient());
         demandeServiceFacade.save(demandePhotographie.getDemandeService());
+        demandePhotographie.setId(generateId("DemandePhotographie", "id"));
         create(demandePhotographie);
     }
     @Override

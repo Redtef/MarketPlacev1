@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.Owner;
 import bean.Societe;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +21,14 @@ public class SocieteFacade extends AbstractFacade<Societe> {
 
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
+    @EJB
+    private OwnerFacade ownerFacade;
+
+    public void save(Societe societe) {
+        ownerFacade.save(societe.getOwner());
+        societe.setId(generateId("Societe", "id"));
+        create(societe);
+    }
 
     @Override
     protected EntityManager getEntityManager() {
@@ -28,5 +38,21 @@ public class SocieteFacade extends AbstractFacade<Societe> {
     public SocieteFacade() {
         super(Societe.class);
     }
-    
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public OwnerFacade getOwnerFacade() {
+        return ownerFacade;
+    }
+
+    public void setOwnerFacade(OwnerFacade ownerFacade) {
+        this.ownerFacade = ownerFacade;
+    }
+
 }

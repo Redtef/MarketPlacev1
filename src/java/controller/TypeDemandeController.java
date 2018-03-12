@@ -1,9 +1,9 @@
 package controller;
 
-import bean.Owner;
+import bean.TypeDemande;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.OwnerFacade;
+import service.TypeDemandeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,60 +19,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("ownerController")
+
+@Named("typeDemandeController")
 @SessionScoped
-public class OwnerController implements Serializable {
+public class TypeDemandeController implements Serializable {
 
-    @EJB
-    private service.OwnerFacade ejbFacade;
-    private List<Owner> items = null;
-    private Owner selected;
 
-    public OwnerController() {
+    @EJB private service.TypeDemandeFacade ejbFacade;
+    private List<TypeDemande> items = null;
+    private TypeDemande selected;
+
+    public TypeDemandeController() {
     }
 
-    
-//    public String login() {
-//        int conected = managerFacade.login(selected);
-//        if (conected == 0) {
-//            SessionUtil.setAttribute("connectedManager", selected);
-//            Device dev = deviceFacade.getManagerDevice(selected);
-//            deviceFacade.create(dev);
-//        } else if (conected == 1) {
-//            Device device = deviceFacade.verifDevice(selected);
-//            if (device == null) {
-//                return "/manager/question";
-//            } else {
-//                selected = managerFacade.find(selected.getId());
-//                SessionUtil.setAttribute("connectedManager", selected);
-//            }
-//        }
-//        return "/manager/Profile";
-//    }
-//
-//    public String verifRepons() {
-//        int verifier = 0;
-//        String conex = DateUtil.formateDate("yyyy-MM-dd", dernierConex);
-//        verifier += managerFacade.RepDernConx(selected, conex);
-//        verifier += managerFacade.RepDernAction(selected, action);
-//        conex = DateUtil.formateDate("yyyy-MM-dd", dernierConfirmation);
-//        verifier += managerFacade.RepDernConfir(selected, conex);
-//        if (verifier < 2) {
-//            return "/login";
-//        } else {
-//            Device dev = deviceFacade.getManagerDevice(selected);
-//            deviceFacade.creerDevice(dev);
-//            SessionUtil.setAttribute("device", dev);
-//            SessionUtil.setAttribute("connectedManager", selected);
-//            return "/manager/Profile";
-//        }
-//    }
-//    
-    public Owner getSelected() {
+    public TypeDemande getSelected() {
         return selected;
     }
 
-    public void setSelected(Owner selected) {
+    public void setSelected(TypeDemande selected) {
         this.selected = selected;
     }
 
@@ -82,36 +46,36 @@ public class OwnerController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private OwnerFacade getFacade() {
+    private TypeDemandeFacade getFacade() {
         return ejbFacade;
     }
 
-    public Owner prepareCreate() {
-        selected = new Owner();
+    public TypeDemande prepareCreate() {
+        selected = new TypeDemande();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OwnerCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TypeDemandeCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("OwnerUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TypeDemandeUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("OwnerDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("TypeDemandeDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Owner> getItems() {
+    public List<TypeDemande> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -146,29 +110,29 @@ public class OwnerController implements Serializable {
         }
     }
 
-    public Owner getOwner(java.lang.String id) {
+    public TypeDemande getTypeDemande(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Owner> getItemsAvailableSelectMany() {
+    public List<TypeDemande> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Owner> getItemsAvailableSelectOne() {
+    public List<TypeDemande> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Owner.class)
-    public static class OwnerControllerConverter implements Converter {
+    @FacesConverter(forClass=TypeDemande.class)
+    public static class TypeDemandeControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            OwnerController controller = (OwnerController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "ownerController");
-            return controller.getOwner(getKey(value));
+            TypeDemandeController controller = (TypeDemandeController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "typeDemandeController");
+            return controller.getTypeDemande(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -188,11 +152,11 @@ public class OwnerController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Owner) {
-                Owner o = (Owner) object;
+            if (object instanceof TypeDemande) {
+                TypeDemande o = (TypeDemande) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Owner.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), TypeDemande.class.getName()});
                 return null;
             }
         }

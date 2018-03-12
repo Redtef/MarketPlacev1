@@ -29,6 +29,25 @@ public class OwnerFacade extends AbstractFacade<Owner> {
         create(owner);
     }
 
+//    
+//    public int login(Manager manager) {
+//
+//        Manager m = (Manager) em.createQuery("SELECT m FROM Manager m WHERE m.id='" + manager.getId() + "'").getSingleResult();
+//        if (m == null) {
+//            return -1;
+//        } else if (m.isBlocked()) {
+//            return -2;
+//        } else if (!m.getPassword().equals(manager.getPassword())) {
+//            return -3;
+//        } else {
+//            List<Device> device = em.createQuery("SELECT d FROM Device d WHERE d.manager.id='" + manager.getId() + "'").setMaxResults(1).getResultList();
+//            if (device.isEmpty()) {
+//                return 0;
+//            } else {
+//                return 1;
+//            }
+//        }
+//    }
     public OwnerFacade() {
         super(Owner.class);
     }

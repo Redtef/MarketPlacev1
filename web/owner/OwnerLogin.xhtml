@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/loginStyle.css"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/modern-business.css"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/load.css"/>
+        <script type="text/javascript" src="../resources/js/script.js"></script>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div class="topnav">
+            <a href="#news">Home And Car Insurance</a>
+            <a href="#contact">Event And Caterning</a>
+            <a href="#about">Garden And Pest Control</a>
+            <a href="#about">Maids Nannies And Nurses</a>
+            <a href="#about">Painting And HandyMan</a>
+            <a href="#about">Moving and storage</a>
+            <a href="#about">cleaning service</a>
+            <a class="active" href="index.html">Home</a>
+            <div class="container">
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flipper">
+                        <div class="front">
+                            <img src="../resources/images/logo.png" class="front" height="20px" width="20PX" alt="index.html"/>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                        </div>
+
+                    </div>
+
+                </div> 
+            </div>
+        </div>
+        <div class="loginBox">
+            <a href="index.html"><img src="../resources/images/user.png" class="user"/></a>
+            <h2>Se connecter</h2>
+            <h:form>
+                <br></br>
+                <br></br>
+                <p>Login</p>
+                <p:inputText value="#{managerController.selected.id}" title="Login" class="input"/>
+                <p>Mot de passe</p>
+                <p:inputText type="password" value="#{managerController.selected.password}" class="input" title="Password"  />
+                <p:commandButton class="btn-login " action="#{managerController.login()}" value="se connecter"  ></p:commandButton>
+                <br></br>
+                <h:commandLink action="/client/reset" value="mot de passe oublié"/>
+            </h:form>
+        </div>
+
+
+    </h:body>
+</html>

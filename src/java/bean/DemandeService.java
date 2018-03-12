@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -51,6 +52,8 @@ public class DemandeService implements Serializable {
     private Date dateDernierModif;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateSuppression;
+    @OneToOne
+    private TypeDemande typeDemande;
 
     public DemandeService() {
     }
@@ -99,6 +102,14 @@ public class DemandeService implements Serializable {
             secteur = new Secteur();
         }
         return secteur;
+    }
+
+    public TypeDemande getTypeDemande() {
+        return typeDemande;
+    }
+
+    public void setTypeDemande(TypeDemande typeDemande) {
+        this.typeDemande = typeDemande;
     }
 
     public void setSecteur(Secteur secteur) {

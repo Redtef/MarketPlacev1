@@ -51,6 +51,9 @@ public class SocieteJob implements Serializable {
     }
 
     public Secteur getSecteur() {
+        if (secteur == null) {
+            secteur = new Secteur();
+        }
         return secteur;
     }
 
@@ -59,6 +62,9 @@ public class SocieteJob implements Serializable {
     }
 
     public Service getService() {
+        if (service == null) {
+            service = new Service();
+        }
         return service;
     }
 
@@ -96,7 +102,7 @@ public class SocieteJob implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.SocieteJob[ id=" + id + " ]";
+        return "SocieteJob{" + "id=" + id + ", societe=" + societe + ", secteur=" + secteur + ", service=" + service + '}';
     }
 
 }

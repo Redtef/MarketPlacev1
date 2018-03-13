@@ -119,7 +119,7 @@ public class Societe implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Societe[ id=" + id + " ]";
+        return "Societe{" + "id=" + id + ", nom=" + nom + ", nombreEmploye=" + nombreEmploye + ", siteWeb=" + siteWeb + ", phone=" + phone + ", owner=" + owner + ", reviews=" + reviews + '}';
     }
 
 }

@@ -8,6 +8,7 @@ package service;
 import bean.Societe;
 import bean.SocieteJob;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,28 +20,41 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class SocieteJobFacade extends AbstractFacade<SocieteJob> {
 
-    private Societe societe;
-    
+    @EJB
+    SocieteFacade societeFacade;
+
     @PersistenceContext(unitName = "ServiceMarketv1PU")
     private EntityManager em;
 
-    public void save(List<SocieteJob> jobs,Societe societe) {
-        for (SocieteJob job : jobs) {
+//    public void save(List<SocieteJob> jobs,Societe societe) {
+//        for (SocieteJob job : jobs) {
+//            job.setId(generateId("SocieteJob", "id"));
+//            job.setSociete(societe);
+//            create(job);
+//        }
+//    }
+    public void save(List<SocieteJob> jobs, Societe societe) {
+        societeFacade.save(societe);
+        jobs.stream().map((job) -> {
             job.setId(generateId("SocieteJob", "id"));
+            return job;
+        }).map((job) -> {
             job.setSociete(societe);
+            return job;
+        }).forEachOrdered((job) -> {
             create(job);
-        }
+        });
     }
 
     public List<SocieteJob> findBySociete(Societe societe) {
-        return em.createQuery("SELECT sj FROM SocieteJob sj WHERE sj.societe.id ='" +societe.getId()+ "'").getResultList();
+        return em.createQuery("SELECT sj FROM SocieteJob sj WHERE sj.societe.id ='" + societe.getId() + "'").getResultList();
     }
 
     public void clone(SocieteJob societeJobSource, SocieteJob societeJobDestination) {
-        societeJobSource.setId(societeJobDestination.getId());
-        societeJobSource.setSecteur(societeJobDestination.getSecteur());
-        societeJobSource.setService(societeJobDestination.getService());
-        societeJobSource.setSociete(societeJobDestination.getSociete());
+        societeJobDestination.setId(societeJobSource.getId());
+        societeJobDestination.setSecteur(societeJobSource.getSecteur());
+        societeJobDestination.setService(societeJobSource.getService());
+        societeJobDestination.setSociete(societeJobSource.getSociete());
 
     }
 
@@ -59,14 +73,6 @@ public class SocieteJobFacade extends AbstractFacade<SocieteJob> {
         super(SocieteJob.class);
     }
 
-    public Societe getSociete() {
-        return societe;
-    }
-
-    public void setSociete(Societe societe) {
-        this.societe = societe;
-    }
-
     public EntityManager getEm() {
         return em;
     }
@@ -75,5 +81,4 @@ public class SocieteJobFacade extends AbstractFacade<SocieteJob> {
         this.em = em;
     }
 
-    
 }

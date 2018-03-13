@@ -4,7 +4,6 @@ import bean.Societe;
 import bean.SocieteJob;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import controller.util.SessionUtil;
 import service.SocieteJobFacade;
 
 import java.io.Serializable;
@@ -43,8 +42,10 @@ public class SocieteJobController implements Serializable {
     }
 
     public void add() {
-        //items.add(ejbFacade.clone(selected));
-        items.add(new SocieteJob());
+        System.out.println(selected);
+        items.add(ejbFacade.clone(selected));
+        System.out.println(ejbFacade.clone(selected));
+        //items.add(new SocieteJob());
     }
 
     public void remove(SocieteJob societeJob) {
@@ -52,9 +53,10 @@ public class SocieteJobController implements Serializable {
     }
 
     public void save() {
-        societe = (Societe) SessionUtil.getAttribute("societe");
-        ejbFacade.save(items, societe);
-        items = null;
+//        societe = (Societe) SessionUtil.getAttribute("societe");
+//        ejbFacade.save(items, societe);
+//        items = null;
+        ejbFacade.save(items,selected.getSociete());
     }
 
     public void setSelected(SocieteJob selected) {
@@ -87,7 +89,6 @@ public class SocieteJobController implements Serializable {
         this.societe = societe;
     }
 
-    
     public SocieteJob prepareCreate() {
         selected = new SocieteJob();
         initializeEmbeddableKey();
@@ -114,9 +115,6 @@ public class SocieteJobController implements Serializable {
     }
 
     public List<SocieteJob> getItems() {
-        if (items == null) {
-            items = ejbFacade.findBySociete(societe);
-        }
         return items;
     }
 

@@ -1,0 +1,25 @@
+#formNav {
+	background-color: #343A40;
+	border-radius: 0;
+	border:  0;
+	padding: 10px 0px 10px 0px;
+}
+
+#formFooter{
+  padding: 30px;
+  background-color: #343A40;
+  color: lightgrey;
+}
+
+.formText a{
+	color: black;
+	font-size: 20px;
+}
+
+a {
+	color: black;
+}
+
+.navbar{
+  font-size: 14px;
+}

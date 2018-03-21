@@ -14,10 +14,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
 
 @Named("ownerController")
 @SessionScoped
@@ -31,13 +33,24 @@ public class OwnerController implements Serializable {
     public OwnerController() {
     }
 
-    
-//    public String login() {
-//        int conected = managerFacade.login(selected);
+    public String login() {
+        int connected = ejbFacade.loginId(selected);
+        if (connected == -1) {
+            showMessage("Compte introuvable", "Verifiez votre email et mot de passe");
+        } else if (connected == -2) {
+            showMessage("Votre compte est blocké", "Veuillez contacter un manager");
+        } else if (connected == -3) {
+            showMessage("Compte introuvable", "Verifiez votre email et mot de passe");
+        }
+        return "/owner/profile";
+    }
+
+//    public String loginId() {
+//        int conected = ejbFacade.loginId(selected);
 //        if (conected == 0) {
 //            SessionUtil.setAttribute("connectedManager", selected);
-//            Device dev = deviceFacade.getManagerDevice(selected);
-//            deviceFacade.create(dev);
+////            Device dev = deviceFacade.getManagerDevice(selected);
+////            deviceFacade.create(dev);
 //        } else if (conected == 1) {
 //            Device device = deviceFacade.verifDevice(selected);
 //            if (device == null) {
@@ -49,7 +62,6 @@ public class OwnerController implements Serializable {
 //        }
 //        return "/manager/Profile";
 //    }
-//
 //    public String verifRepons() {
 //        int verifier = 0;
 //        String conex = DateUtil.formateDate("yyyy-MM-dd", dernierConex);
@@ -67,8 +79,15 @@ public class OwnerController implements Serializable {
 //            return "/manager/Profile";
 //        }
 //    }
-//    
+    public void showMessage(String titre, String contenu) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, titre, contenu);
+        RequestContext.getCurrentInstance().showMessageInDialog(message);
+    }
+
     public Owner getSelected() {
+        if (selected == null) {
+            selected = new Owner();
+        }
         return selected;
     }
 

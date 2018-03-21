@@ -5,7 +5,6 @@
  */
 package service;
 
-import bean.Owner;
 import bean.Societe;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

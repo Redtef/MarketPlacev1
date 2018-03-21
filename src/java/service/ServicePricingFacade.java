@@ -7,7 +7,7 @@ package service;
 
 import bean.Service;
 import bean.ServicePricing;
-import controler.util.SearchUtil;
+import controller.util.SearchUtil;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

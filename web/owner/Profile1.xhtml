@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Profile</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content="Yassine Simou"/>
+        <link rel="icon" href="../ressources/images/logo21.jpg"/>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500"/>
+        <link href="../ressources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom styles for this template -->
+
+        <link rel="stylesheet" href="../ressources/assets/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="../ressources/css/jquery.datetimepicker.css"/>
+        <link rel="stylesheet" href="../ressources/assets/css/form-elements.css"/>
+        <link href="../ressources/css/modern-business.css" rel="stylesheet"/>
+        <link href="../ressources/css/dashboard.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="index.html">
+                <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flipper">
+                        <div class="front">
+                            <img style="float: left;position: relative;" src="../ressources/images/logo.png" class="front" height="50px" width="50px"/>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </nav>
+
+
+        <div class="container-fluid" style=" padding-top: 2rem;padding-bottom: 2rem;">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar" style=" padding-top: 4rem;padding-bottom: 1rem;">
+                    <p style="text-align: center;"><h:link outcome="/manager/Profile.xhtml"><img src="../ressources/assets/img/adminuser.png" style="border-radius: 50%;" width="70"></img></h:link></p>
+                    <div align="center"> <h:outputLabel value="#{ownerController.selected.id}" style="color: grey; text-align: center;" ></h:outputLabel> </div>
+                    <br></br>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <h:link class="nav-link active" outcome="/owner/Profile.xhtml">
+                                <i class="fa fa-desktop"></i>
+                                <span> Profile </span></h:link>
+                            <br></br></li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/owner/Societe.xhtml">
+                                <i class="fa fa-desktop"></i>
+                                <span>societes</span>
+                                </h:link>
+                            <br></br></li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/owner/Demande.xhtml">
+                                <i class="fa fa-align-justify"></i>
+                                <span> Demandes</span>
+                            </h:link>
+                            <br></br></li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/owner/Operation.xhtml">
+                                <i class="fa fa-cog"></i>
+                                <span>Operations</span>
+                            </h:link>
+                            <br></br></li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/owner/Statistique.xhtml">
+                                <i class="fa fa-book"></i>
+                                <span>Statistiques</span>
+                            </h:link>
+                        </li>
+                    </ul>
+                </nav>
+
+                <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                    <hr></hr>
+                    <h1 align="center"> Operations : </h1>
+                    <hr></hr><br></br>
+                    <div class="container">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                    <br></br><hr></hr>
+                </main>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <div class="m-0 text-center text-white" >
+                    <a class="navbar-brand" href="index.html">
+                        <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                            <div class="flipper">
+                                <div class="front">
+                                    <img style="float: center;position: center;" src="../ressources/images/logo.png" class="front" height="50px" width="50px"/>
+                                </div>
+                                <div class="back">
+                                    <!-- back content -->
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- /.container -->
+        </footer>
+
+        <!-- Bootstrap core JavaScript
+          ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="../../dist/js/bootstrap.min.js">window.jQuery || document.write('<script src="../../../assets/js/vendor/jquery.min.js"></script></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+        
+    </h:body>
+</html>
+
